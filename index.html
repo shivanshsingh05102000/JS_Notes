@@ -592,10 +592,6 @@
     <div class="sidebar-logo">JS Notes</div>
     <div class="sidebar-sub">// complete reference</div>
   </div>
-  <div style="padding: 24px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); line-height: 1.8;">
-  <div style="color: var(--text-muted); margin-bottom: 4px;">Shivansh Singh</div>
-  <div>© 2025 · Personal Notes</div>
-  <div style="margin-top: 8px;">Source: javascript.info</div>
   </div>
   <div class="nav-section-label">Fundamentals</div>
   <a class="nav-item" href="#intro"><span class="num">01</span> Introduction</a>
@@ -626,7 +622,10 @@
   <div class="nav-section-label">Practice</div>
   <a class="nav-item" href="#quiz"><span class="num">★</span> Quick Quiz</a>
 </nav>
-
+ <div style="padding: 24px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); line-height: 1.8;">
+  <div style="color: var(--text-muted); margin-bottom: 4px;">Shivansh Singh</div>
+  <div>© 2025 · Personal Notes</div>
+  <div style="margin-top: 8px;">Source: javascript.info</div>
 <!-- MAIN -->
 <main class="main">
 
@@ -797,17 +796,15 @@ alert("Hello")
       </table>
     </div>
 
-    <h3>typeof Gotchas</h3>
-    <pre><code>typeof null       // "object" ⚠ known JS bug — null is NOT an object
-typeof alert      // "function"
-typeof undefined  // "undefined"</code></pre>
-    <pre><code>typeof function(){} // "function" — not "object", even though functions ARE objects
-typeof null         // "object"  — bug from 1995
-// These are the only 2 exceptions to typeof's normal behavior</code></pre>
-    <div class="callout danger"><strong>Interview trap:</strong> <code>typeof null === "object"</code> is a bug from 1995, never fixed. null is NOT an object.</div>
-  </section>
-
-  <hr class="divider">
+<h3>typeof Gotchas</h3>
+<pre><code>typeof null         // "object"   ⚠ bug from 1995 — null is NOT an object
+typeof function(){} // "function" — not "object", even though functions ARE objects
+typeof undefined    // "undefined"
+typeof alert        // "function"
+// null and function(){} are the only 2 typeof exceptions</code></pre>
+<div class="callout danger"><strong>Interview trap:</strong> <code>typeof null === "object"</code> is a bug from 1995, never fixed. null is NOT an object.</div>
+</section>
+<hr class="divider">
 
   <!-- 10 TYPE CONVERSION -->
   <section class="section" id="conversion">
