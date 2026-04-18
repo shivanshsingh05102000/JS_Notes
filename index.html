@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript — Complete Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Crimson+Pro:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #141417;
+    --surface2: #1c1c21;
+    --border: #2a2a32;
+    --accent: #f5c842;
+    --accent2: #ff6b4a;
+    --accent3: #4af5c0;
+    --text: #e8e8f0;
+    --text-muted: #7a7a90;
+    --text-dim: #4a4a60;
+    --code-bg: #1a1a20;
+    --correct: #4af5c0;
+    --wrong: #ff6b4a;
+    --warn: #f5c842;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* SIDEBAR NAV */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 32px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .sidebar-header {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .sidebar-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .sidebar-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .nav-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    padding: 16px 24px 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 24px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: rgba(245, 200, 66, 0.05);
+  }
+
+  .nav-item .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    min-width: 20px;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: 260px;
+    padding: 60px 80px;
+    max-width: 1000px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    margin-bottom: 72px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: var(--text);
+    letter-spacing: -2px;
+  }
+
+  .page-header h1 span {
+    color: var(--accent);
+  }
+
+  .page-header .desc {
+    margin-top: 20px;
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 500px;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 72px;
+    scroll-margin-top: 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+
+  .section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 28px 0 12px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  /* CODE BLOCKS */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  pre::before {
+    content: 'JS';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #c9d1d9;
+  }
+
+  p code, li code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 13px;
+    color: var(--accent3);
+  }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-left: 3px solid;
+    font-size: 16px;
+  }
+
+  .callout.warn {
+    background: rgba(245, 200, 66, 0.06);
+    border-color: var(--warn);
+  }
+
+  .callout.warn::before {
+    content: '⚠ ';
+    color: var(--warn);
+    font-weight: 700;
+  }
+
+  .callout.tip {
+    background: rgba(74, 245, 192, 0.06);
+    border-color: var(--accent3);
+  }
+
+  .callout.tip::before {
+    content: '→ ';
+    color: var(--accent3);
+    font-weight: 700;
+  }
+
+  .callout.danger {
+    background: rgba(255, 107, 74, 0.06);
+    border-color: var(--accent2);
+  }
+
+  .callout.danger::before {
+    content: '✗ ';
+    color: var(--accent2);
+    font-weight: 700;
+  }
+
+  /* COMPARISON TABLE */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  thead {
+    background: var(--surface2);
+  }
+
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(42, 42, 50, 0.5);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td code { font-size: 12px; }
+
+  /* KEY-VALUE GRID */
+  .kv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .kv-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+
+  .kv-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .kv-val {
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  /* QUIZ SECTION */
+  .quiz-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    transition: border-color 0.2s;
+  }
+
+  .quiz-card.answered-correct { border-color: var(--correct); }
+  .quiz-card.answered-wrong { border-color: var(--wrong); }
+
+  .quiz-q {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .quiz-q code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent3);
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-opt {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    width: 100%;
+  }
+
+  .quiz-opt:hover:not(:disabled) {
+    background: var(--surface);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .quiz-opt.correct {
+    background: rgba(74, 245, 192, 0.1);
+    border-color: var(--correct);
+    color: var(--correct);
+  }
+
+  .quiz-opt.wrong {
+    background: rgba(255, 107, 74, 0.1);
+    border-color: var(--wrong);
+    color: var(--wrong);
+  }
+
+  .quiz-feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: rgba(74, 245, 192, 0.08); color: var(--correct); }
+  .quiz-feedback.wrong { background: rgba(255, 107, 74, 0.08); color: var(--accent2); }
+
+  /* TAGS */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .tag.falsy { background: rgba(255, 107, 74, 0.1); color: var(--accent2); border-color: var(--accent2); }
+  .tag.truthy { background: rgba(74, 245, 192, 0.1); color: var(--accent3); border-color: var(--accent3); }
+  .tag.neutral { background: rgba(245, 200, 66, 0.1); color: var(--accent); border-color: var(--accent); }
+
+  /* TOGGLE REVEAL */
+  .reveal-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: all 0.15s;
+  }
+  .reveal-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .reveal-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .reveal-content.open { display: block; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 40px 24px; }
+    .kv-grid { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 36px; }
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 999;
+    transition: width 0.1s;
+  }
+
+  /* SECTION INDICATOR */
+  .section-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .section-pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  ul li {
+    padding: 4px 0 4px 20px;
+    position: relative;
+    color: var(--text);
+    font-size: 17px;
+  }
+
+  ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+    font-size: 13px;
+    top: 7px;
+  }
+
+  strong { color: var(--accent); font-weight: 600; }
+
+  em { color: var(--text-muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">JS Notes</div>
+    <div class="sidebar-sub">// complete reference</div>
+  </div>
+
+  <div class="nav-section-label">Fundamentals</div>
+  <a class="nav-item" href="#intro"><span class="num">01</span> Introduction</a>
+  <a class="nav-item" href="#editors"><span class="num">02</span> Code Editors</a>
+  <a class="nav-item" href="#console"><span class="num">03</span> Dev Console</a>
+  <a class="nav-item" href="#scripts"><span class="num">04</span> Scripts</a>
+  <a class="nav-item" href="#structure"><span class="num">05</span> Code Structure</a>
+  <a class="nav-item" href="#strict"><span class="num">06</span> use strict</a>
+  <a class="nav-item" href="#variables"><span class="num">07</span> Variables</a>
+  <a class="nav-item" href="#datatypes"><span class="num">08</span> Data Types</a>
+
+  <div class="nav-section-label">Interaction & Logic</div>
+  <a class="nav-item" href="#interaction"><span class="num">09</span> alert/prompt/confirm</a>
+  <a class="nav-item" href="#conversion"><span class="num">10</span> Type Conversions</a>
+  <a class="nav-item" href="#operators"><span class="num">11</span> Operators & Math</a>
+  <a class="nav-item" href="#comparison"><span class="num">12</span> Comparisons</a>
+  <a class="nav-item" href="#conditionals"><span class="num">13</span> Conditionals</a>
+  <a class="nav-item" href="#logical"><span class="num">14</span> Logical Operators</a>
+  <a class="nav-item" href="#nullish"><span class="num">15</span> Nullish ??</a>
+
+  <div class="nav-section-label">Control & Functions</div>
+  <a class="nav-item" href="#loops"><span class="num">16</span> Loops</a>
+  <a class="nav-item" href="#switch"><span class="num">17</span> Switch</a>
+  <a class="nav-item" href="#functions"><span class="num">18</span> Functions</a>
+  <a class="nav-item" href="#funcexpr"><span class="num">19</span> Fn Expressions</a>
+  <a class="nav-item" href="#arrow"><span class="num">20</span> Arrow Functions</a>
+
+  <div class="nav-section-label">Practice</div>
+  <a class="nav-item" href="#quiz"><span class="num">★</span> Quick Quiz</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="tag">// javascript · complete notes</div>
+    <h1>JS <span>Fundamentals</span><br>Reference</h1>
+    <p class="desc">From introduction to arrow functions — everything you need, nothing you don't.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="val">20</div><div class="label">Chapters</div></div>
+      <div class="stat"><div class="val">8</div><div class="label">Data Types</div></div>
+      <div class="stat"><div class="val">∞</div><div class="label">Reps needed</div></div>
+    </div>
+  </header>
+
+  <!-- 01 INTRO -->
+  <section class="section" id="intro">
+    <div class="section-pill"><span class="dot"></span>Chapter 01</div>
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Introduction to JavaScript</h2>
+    </div>
+
+    <p>Created to <strong>make web pages alive</strong>. Scripts run as plain text — no compilation needed. Originally "LiveScript", renamed to ride Java's popularity. Fully independent today; its spec is called <strong>ECMAScript</strong>.</p>
+
+    <h3>JS Engines by Browser</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Engine</th><th>Browser</th></tr></thead>
+        <tbody>
+          <tr><td><code>V8</code></td><td>Chrome, Opera, Edge</td></tr>
+          <tr><td><code>SpiderMonkey</code></td><td>Firefox</td></tr>
+          <tr><td><code>Chakra</code></td><td>IE</td></tr>
+          <tr><td><code>JavaScriptCore</code></td><td>Safari</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Engine Pipeline</h3>
+    <p><strong>Parse</strong> → <strong>Compile to machine code</strong> → <strong>Run</strong> (with optimisations at each step)</p>
+
+    <h3>What JS Can Do (Browser)</h3>
+    <ul>
+      <li>Add/change HTML content and CSS styles</li>
+      <li>React to user actions (clicks, keys, mouse)</li>
+      <li>Make network requests (AJAX, COMET)</li>
+      <li>Store data client-side (localStorage)</li>
+    </ul>
+
+    <h3>What JS Cannot Do (Browser)</h3>
+    <div class="callout warn">Read/write files, access OS, use camera/mic without permission, access other-domain tabs (Same Origin Policy)</div>
+
+    <h3>Languages That Transpile to JS</h3>
+    <div class="kv-grid">
+      <div class="kv-item"><div class="kv-key">TypeScript</div><div class="kv-val">Strict typing — by Microsoft</div></div>
+      <div class="kv-item"><div class="kv-key">CoffeeScript</div><div class="kv-val">Syntactic sugar, Ruby-style</div></div>
+      <div class="kv-item"><div class="kv-key">Dart</div><div class="kv-val">Standalone, by Google</div></div>
+      <div class="kv-item"><div class="kv-key">Kotlin</div><div class="kv-val">Modern, targets browser/Node</div></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 05 CODE STRUCTURE -->
+  <section class="section" id="structure">
+    <div class="section-pill"><span class="dot"></span>Chapter 05</div>
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Code Structure</h2>
+    </div>
+
+    <p>Instructions are called <strong>statements</strong>, separated by semicolons. JS has automatic semicolon insertion (ASI) — but it's unreliable.</p>
+
+    <div class="callout danger">Never rely on ASI. Always write semicolons manually.</div>
+
+    <pre><code>// dangerous — JS merges these into one broken statement
+alert("Hello")
+[1, 2].forEach(alert);  // reads as: alert("Hello")[1,2].forEach(...)</code></pre>
+
+    <h3>Comments</h3>
+    <pre><code>// single line comment
+
+/* multi-line
+   comment */
+
+/* alert('disabled'); */  // temporarily disable code</code></pre>
+
+    <div class="callout warn">Nested comments <code>/* /* */ */</code> throw an error.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 06 USE STRICT -->
+  <section class="section" id="strict">
+    <div class="section-pill"><span class="dot"></span>Chapter 06</div>
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>"use strict"</h2>
+    </div>
+
+    <p>ES5 (2009) introduced fixes that are <strong>off by default</strong> to avoid breaking legacy code. <code>"use strict"</code> opts into these fixes.</p>
+
+    <pre><code>"use strict";
+// entire script runs in strict mode</code></pre>
+
+    <div class="callout warn">Must be at the very top — placing it anywhere else is ignored. Cannot be undone.</div>
+
+    <div class="callout tip">Classes and modules enable strict mode automatically — once you use them, "use strict" is redundant.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 07 VARIABLES -->
+  <section class="section" id="variables">
+    <div class="section-pill"><span class="dot"></span>Chapter 07</div>
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Variables</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Keyword</th><th>Reassignable</th><th>Scope</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>let</code></td><td>✅ Yes</td><td>Block <code>{}</code></td><td>Modern default</td></tr>
+          <tr><td><code>const</code></td><td>❌ No</td><td>Block <code>{}</code></td><td>Fixed values</td></tr>
+          <tr><td><code>var</code></td><td>✅ Yes</td><td>Function/Global</td><td><strong>Avoid</strong> — old school</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Naming Rules</h3>
+    <ul>
+      <li>Letters, digits, <code>$</code>, <code>_</code> only — cannot start with a digit</li>
+      <li>Case-sensitive: <code>apple ≠ APPLE</code></li>
+      <li>Use <code>camelCase</code> for multi-word names</li>
+      <li>No reserved words: <code>let</code>, <code>class</code>, <code>return</code></li>
+    </ul>
+
+    <div class="callout danger">Without "use strict", you can accidentally create globals: <code>num = 5</code> — extremely dangerous.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 08 DATA TYPES -->
+  <section class="section" id="datatypes">
+    <div class="section-pill"><span class="dot"></span>Chapter 08</div>
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Data Types</h2>
+    </div>
+
+    <p>JavaScript is <strong>dynamically typed</strong> — variables aren't locked to a type.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Example</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>Number</code></td><td><code>123, 12.3</code></td><td>Includes <code>Infinity</code>, <code>NaN</code></td></tr>
+          <tr><td><code>BigInt</code></td><td><code>123n</code></td><td>Huge integers — append <code>n</code></td></tr>
+          <tr><td><code>String</code></td><td><code>"hi"</code>, <code>'hi'</code>, <code>`hi`</code></td><td>Backticks support <code>${}</code></td></tr>
+          <tr><td><code>Boolean</code></td><td><code>true / false</code></td><td>Yes/no values</td></tr>
+          <tr><td><code>Null</code></td><td><code>null</code></td><td>Intentionally empty</td></tr>
+          <tr><td><code>Undefined</code></td><td><code>undefined</code></td><td>Not yet assigned</td></tr>
+          <tr><td><code>Symbol</code></td><td><code>Symbol("id")</code></td><td>Unique identifiers</td></tr>
+          <tr><td><code>Object</code></td><td><code>{name: "x"}</code></td><td>Only non-primitive</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>typeof Gotchas</h3>
+    <pre><code>typeof null       // "object" ⚠ known JS bug — null is NOT an object
+typeof alert      // "function"
+typeof undefined  // "undefined"</code></pre>
+
+    <div class="callout danger"><strong>Interview trap:</strong> <code>typeof null === "object"</code> is a bug from 1995, never fixed. null is NOT an object.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 10 TYPE CONVERSION -->
+  <section class="section" id="conversion">
+    <div class="section-pill"><span class="dot"></span>Chapter 10</div>
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2>Type Conversions</h2>
+    </div>
+
+    <h3>To Number</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Value</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>undefined</code></td><td><code>NaN</code></td></tr>
+          <tr><td><code>null</code></td><td><code>0</code></td></tr>
+          <tr><td><code>true</code></td><td><code>1</code></td></tr>
+          <tr><td><code>false</code></td><td><code>0</code></td></tr>
+          <tr><td><code>""</code></td><td><code>0</code></td></tr>
+          <tr><td><code>"123"</code></td><td><code>123</code></td></tr>
+          <tr><td><code>"abc"</code></td><td><code>NaN</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn"><code>undefined → NaN</code> (not 0!). <code>null → 0</code> (not NaN!). These are opposite and commonly confused.</div>
+
+    <h3>To Boolean (Falsy Values)</h3>
+    <div class="tag-row">
+      <span class="tag falsy">0</span>
+      <span class="tag falsy">""</span>
+      <span class="tag falsy">null</span>
+      <span class="tag falsy">undefined</span>
+      <span class="tag falsy">NaN</span>
+      <span class="tag truthy">"0" → truthy</span>
+      <span class="tag truthy">[] → truthy</span>
+      <span class="tag truthy">{} → truthy</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 11 OPERATORS -->
+  <section class="section" id="operators">
+    <div class="section-pill"><span class="dot"></span>Chapter 11</div>
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2>Operators & Math</h2>
+    </div>
+
+    <h3>+ Operator Dual Role</h3>
+    <pre><code>2 + 2 + '1'   // "41" — numbers add first, then concat
+'1' + 2 + 2   // "122" — string first, everything concatenates
+6 - '2'       // 4  — non-+ operators always convert to number</code></pre>
+
+    <h3>Unary + for Conversion</h3>
+    <pre><code>+true   // 1
++""     // 0
++"3"    // 3  — same as Number("3")</code></pre>
+
+    <h3>Operator Precedence (Key)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Priority</th><th>Operator</th></tr></thead>
+        <tbody>
+          <tr><td>14</td><td>Unary <code>+</code> and <code>-</code></td></tr>
+          <tr><td>13</td><td>Exponentiation <code>**</code></td></tr>
+          <tr><td>12</td><td><code>*</code> and <code>/</code></td></tr>
+          <tr><td>11</td><td>Binary <code>+</code> and <code>-</code></td></tr>
+          <tr><td>2</td><td>Assignment <code>=</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Increment / Decrement</h3>
+    <pre><code>let a = ++counter  // prefix: increment FIRST, return new value
+let a = counter++  // postfix: return old value FIRST, then increment</code></pre>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 12 COMPARISON -->
+  <section class="section" id="comparison">
+    <div class="section-pill"><span class="dot"></span>Chapter 12</div>
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2>Comparisons</h2>
+    </div>
+
+    <h3>Strict vs Loose Equality</h3>
+    <pre><code>0 == false    // true  — type coercion
+0 === false   // false — strict, no conversion
+"" == false   // true  — loose
+"" === false  // false — strict</code></pre>
+
+    <div class="callout tip">Always use <code>===</code>. Never use <code>==</code> unless you specifically need type coercion.</div>
+
+    <h3>null & undefined Traps</h3>
+    <pre><code>null == undefined   // true  (special pair)
+null === undefined  // false (different types)
+
+null >= 0    // true  — null converts to 0
+null == 0    // false — == uses different rules, null only == undefined
+undefined    // always false in comparisons (converts to NaN)</code></pre>
+
+    <div class="callout danger">Never use <code>&gt; &lt; &gt;= &lt;=</code> with variables that could be null/undefined. Check first.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 14 LOGICAL -->
+  <section class="section" id="logical">
+    <div class="section-pill"><span class="dot"></span>Chapter 14</div>
+    <div class="section-header">
+      <span class="section-num">14</span>
+      <h2>Logical Operators</h2>
+    </div>
+
+    <p><code>||</code> <code>&&</code> <code>!</code> work on any type, return <em>original values</em>, not just true/false.</p>
+
+    <div class="kv-grid">
+      <div class="kv-item">
+        <div class="kv-key">|| OR — first truthy</div>
+        <div class="kv-val">Stops at first truthy. Returns that original value. If all falsy → returns last.</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">&& AND — first falsy</div>
+        <div class="kv-val">Stops at first falsy. Returns that original value. If all truthy → returns last.</div>
+      </div>
+    </div>
+
+    <pre><code>1 || 0          // 1  (first truthy)
+null || 1       // 1  (skipped null)
+null || 0 || 1  // 1  (first truthy found)
+undefined || null || 0  // 0  (all falsy, returns last)
+
+1 && 0          // 0  (first falsy)
+1 && 2 && 3     // 3  (all truthy, returns last)
+null && 5       // null (stops immediately)</code></pre>
+
+    <h3>!! Double NOT Trick</h3>
+    <pre><code>!!"hello"  // true  — converts any value to pure boolean
+!!null     // false
+!!0        // false
+// same as Boolean(value)</code></pre>
+
+    <h3>Precedence</h3>
+    <p><strong>!</strong> (highest) → <strong>&&</strong> → <strong>||</strong> (lowest)</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 15 NULLISH -->
+  <section class="section" id="nullish">
+    <div class="section-pill"><span class="dot"></span>Chapter 15</div>
+    <div class="section-header">
+      <span class="section-num">15</span>
+      <h2>Nullish Coalescing ??</h2>
+    </div>
+
+    <p>Returns the first <strong>defined</strong> value — only <code>null</code> and <code>undefined</code> trigger fallback.</p>
+
+    <h3>?? vs || — The Critical Difference</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Operator</th><th>Fallback triggers on</th><th>Keeps</th></tr></thead>
+        <tbody>
+          <tr><td><code>||</code></td><td>Any falsy: <code>0, "", false, null, undefined</code></td><td>Only truthy</td></tr>
+          <tr><td><code>??</code></td><td>Only <code>null</code> and <code>undefined</code></td><td><code>0</code>, <code>""</code>, <code>false</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <pre><code>let height = 0;
+height || 100   // 100 — WRONG, loses the 0
+height ?? 100   // 0   — CORRECT, respects user's value
+
+// Real example — volume control
+let volume = 0;
+volume || 50    // 50  — bug, overwrites setting
+volume ?? 50    // 0   — correct</code></pre>
+
+    <div class="callout warn">Mixing <code>??</code> with <code>&&</code> or <code>||</code> without parentheses throws a SyntaxError.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 16 LOOPS -->
+  <section class="section" id="loops">
+    <div class="section-pill"><span class="dot"></span>Chapter 16</div>
+    <div class="section-header">
+      <span class="section-num">16</span>
+      <h2>Loops</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Loop</th><th>Checks condition</th><th>Use when</th></tr></thead>
+        <tbody>
+          <tr><td><code>while</code></td><td>Before each iteration</td><td>Unknown number of iterations</td></tr>
+          <tr><td><code>do...while</code></td><td>After each iteration</td><td>Must run at least once</td></tr>
+          <tr><td><code>for</code></td><td>Before each iteration</td><td>Known number of iterations</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <pre><code>for (begin; condition; step) { body }
+// begin → (condition → body → step) → repeat
+
+for (;;) { /* infinite loop */ }</code></pre>
+
+    <h3>break vs continue</h3>
+    <ul>
+      <li><strong>break</strong> — exits loop immediately</li>
+      <li><strong>continue</strong> — skips rest of current iteration, goes to next</li>
+      <li>Neither can be used with ternary <code>?</code></li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 18 FUNCTIONS -->
+  <section class="section" id="functions">
+    <div class="section-pill"><span class="dot"></span>Chapter 18</div>
+    <div class="section-header">
+      <span class="section-num">18</span>
+      <h2>Functions</h2>
+    </div>
+
+    <h3>Parameters vs Arguments</h3>
+    <ul>
+      <li><strong>Parameter</strong> — variable in the declaration (declaration-time)</li>
+      <li><strong>Argument</strong> — value passed when called (call-time)</li>
+      <li>Arguments are <strong>copied</strong> — modifying a param doesn't affect outside variable</li>
+    </ul>
+
+    <pre><code>function f(text = "no text given") { ... }
+// Default value: evaluated every time function is called without that arg
+
+// Never put newline between return and value:
+return        // JS inserts ; here → returns undefined!
+  (a + b);
+
+// Correct:
+return (
+  a + b
+);</code></pre>
+
+    <h3>Naming Conventions</h3>
+    <div class="tag-row">
+      <span class="tag neutral">get… → returns value</span>
+      <span class="tag neutral">calc… → calculates</span>
+      <span class="tag neutral">create… → creates</span>
+      <span class="tag neutral">check… → returns boolean</span>
+      <span class="tag neutral">show… → displays</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 19 FN EXPRESSIONS -->
+  <section class="section" id="funcexpr">
+    <div class="section-pill"><span class="dot"></span>Chapter 19</div>
+    <div class="section-header">
+      <span class="section-num">19</span>
+      <h2>Function Expressions vs Declarations</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Declaration</th><th>Expression</th></tr></thead>
+        <tbody>
+          <tr><td>Syntax</td><td><code>function foo() {}</code></td><td><code>let foo = function() {};</code></td></tr>
+          <tr><td>Hoisted</td><td>✅ Yes — callable before defined</td><td>❌ No — only after that line</td></tr>
+          <tr><td>Block scope</td><td>Visible only inside block</td><td>Assign to outer var to escape</td></tr>
+          <tr><td>Semicolon</td><td>None needed</td><td>Needs <code>;</code> (it's a statement)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">Default to declarations. Use expressions when you need conditional assignment or anonymous callbacks.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 20 ARROW FUNCTIONS -->
+  <section class="section" id="arrow">
+    <div class="section-pill"><span class="dot"></span>Chapter 20</div>
+    <div class="section-header">
+      <span class="section-num">20</span>
+      <h2>Arrow Functions</h2>
+    </div>
+
+    <pre><code>// No braces → implicit return
+const double = n => n * 2;
+
+// Braces → explicit return required
+const add = (a, b) => {
+  let result = a + b;
+  return result;
+};</code></pre>
+
+    <h3>Parentheses Rules</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Args</th><th>Parens</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>One arg</td><td>Optional</td><td><code>n => n * 2</code></td></tr>
+          <tr><td>No args</td><td>Required</td><td><code>() => alert("hi")</code></td></tr>
+          <tr><td>Multiple</td><td>Required</td><td><code>(a, b) => a + b</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">Arrow functions don't have their own <code>this</code> — they inherit from surrounding scope. Crucial difference from regular functions.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- QUIZ -->
+  <section class="section" id="quiz">
+    <div class="section-pill"><span class="dot"></span>Practice</div>
+    <div class="section-header">
+      <span class="section-num">★</span>
+      <h2>Quick Quiz</h2>
+    </div>
+    <p>Test yourself. No peeking at the notes above.</p>
+
+    <!-- Q1 -->
+    <div class="quiz-card" id="q1">
+      <div class="quiz-q">What does <code>null == undefined</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q1', this, false)">false</button>
+        <button class="quiz-opt" onclick="answer('q1', this, true)">true</button>
+        <button class="quiz-opt" onclick="answer('q1', this, false)">TypeError</button>
+        <button class="quiz-opt" onclick="answer('q1', this, false)">null</button>
+      </div>
+      <div class="quiz-feedback" id="q1-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-card" id="q2">
+      <div class="quiz-q">What does <code>typeof null</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q2', this, false)">"null"</button>
+        <button class="quiz-opt" onclick="answer('q2', this, false)">"undefined"</button>
+        <button class="quiz-opt" onclick="answer('q2', this, true)">"object"</button>
+        <button class="quiz-opt" onclick="answer('q2', this, false)">"boolean"</button>
+      </div>
+      <div class="quiz-feedback" id="q2-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-card" id="q3">
+      <div class="quiz-q">What does <code>0 ?? "default"</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q3', this, false)">"default"</button>
+        <button class="quiz-opt" onclick="answer('q3', this, true)">0</button>
+        <button class="quiz-opt" onclick="answer('q3', this, false)">null</button>
+        <button class="quiz-opt" onclick="answer('q3', this, false)">undefined</button>
+      </div>
+      <div class="quiz-feedback" id="q3-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-card" id="q4">
+      <div class="quiz-q">What does <code>'1' + 2 + 2</code> evaluate to?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q4', this, false)">"14"</button>
+        <button class="quiz-opt" onclick="answer('q4', this, false)">5</button>
+        <button class="quiz-opt" onclick="answer('q4', this, true)">"122"</button>
+        <button class="quiz-opt" onclick="answer('q4', this, false)">"41"</button>
+      </div>
+      <div class="quiz-feedback" id="q4-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-card" id="q5">
+      <div class="quiz-q">Arrow function: <code>const f = n => n * 2</code> — is <code>return</code> needed?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q5', this, false)">Yes, always</button>
+        <button class="quiz-opt" onclick="answer('q5', this, true)">No — no braces = implicit return</button>
+        <button class="quiz-opt" onclick="answer('q5', this, false)">Only for numbers</button>
+      </div>
+      <div class="quiz-feedback" id="q5-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-card" id="q6">
+      <div class="quiz-q">Which value is <strong>truthy</strong>?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q6', this, false)">0</button>
+        <button class="quiz-opt" onclick="answer('q6', this, false)">""</button>
+        <button class="quiz-opt" onclick="answer('q6', this, true)">"0"</button>
+        <button class="quiz-opt" onclick="answer('q6', this, false)">null</button>
+      </div>
+      <div class="quiz-feedback" id="q6-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+  // PROGRESS BAR
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // ACTIVE NAV HIGHLIGHT
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('href') === '#' + id) {
+            item.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // QUIZ
+  const feedback = {
+    q1: { correct: "Correct! null == undefined is true — they're a special pair in JS. But null === undefined is false.", wrong: "Wrong. null == undefined is actually true — they're treated as equal by loose equality only." },
+    q2: { correct: "Correct! typeof null returns 'object' — a famous JS bug from 1995. null is NOT an object.", wrong: "Wrong. typeof null returns 'object' — a famous JS bug from 1995 that was never fixed." },
+    q3: { correct: "Correct! ?? only triggers fallback on null/undefined. 0 is defined, so it passes through.", wrong: "Wrong. ?? only triggers on null/undefined. 0 is a valid defined value — it passes through as 0." },
+    q4: { correct: "Correct! String comes first, so everything concatenates: '1' + 2 = '12', then '12' + 2 = '122'.", wrong: "Wrong. String comes first, so + concatenates: '1'+2='12', '12'+2='122'." },
+    q5: { correct: "Correct! No curly braces = implicit return. Add braces and you must write return explicitly.", wrong: "Wrong. No braces = implicit return. Only with curly braces do you need explicit return." },
+    q6: { correct: "Correct! '0' is a non-empty string — all non-empty strings are truthy, even '0'.", wrong: "Wrong. '0' is the truthy one — it's a non-empty string. 0 (number), '', null are all falsy." },
+  };
+
+  function answer(qId, btn, isCorrect) {
+    const card = document.getElementById(qId);
+    if (card.classList.contains('answered-correct') || card.classList.contains('answered-wrong')) return;
+
+    const options = card.querySelectorAll('.quiz-opt');
+    options.forEach(opt => opt.disabled = true);
+
+    const fb = document.getElementById(qId + '-feedback');
+
+    if (isCorrect) {
+      btn.classList.add('correct');
+      card.classList.add('answered-correct');
+      fb.textContent = '✓ ' + feedback[qId].correct;
+      fb.className = 'quiz-feedback show correct';
+    } else {
+      btn.classList.add('wrong');
+      card.classList.add('answered-wrong');
+      fb.textContent = '✗ ' + feedback[qId].wrong;
+      fb.className = 'quiz-feedback show wrong';
+      // Show correct answer
+      options.forEach(opt => {
+        if (opt.getAttribute('onclick').includes('true')) {
+          opt.classList.add('correct');
+        }
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
