@@ -797,7 +797,9 @@ alert("Hello")
     <pre><code>typeof null       // "object" ⚠ known JS bug — null is NOT an object
 typeof alert      // "function"
 typeof undefined  // "undefined"</code></pre>
-
+    <pre><code>typeof function(){} // "function" — not "object", even though functions ARE objects
+typeof null         // "object"  — bug from 1995
+// These are the only 2 exceptions to typeof's normal behavior</code></pre>
     <div class="callout danger"><strong>Interview trap:</strong> <code>typeof null === "object"</code> is a bug from 1995, never fixed. null is NOT an object.</div>
   </section>
 
