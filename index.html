@@ -618,6 +618,12 @@
   <a class="nav-item" href="#functions"><span class="num">18</span> Functions</a>
   <a class="nav-item" href="#funcexpr"><span class="num">19</span> Fn Expressions</a>
   <a class="nav-item" href="#arrow"><span class="num">20</span> Arrow Functions</a>
+  <a class="nav-item" href="#debugging"><span class="num">21</span> Debugging</a>
+  <a class="nav-item" href="#codestyle"><span class="num">22</span> Coding Style</a>
+  <a class="nav-item" href="#comments"><span class="num">23</span> Comments</a>
+  <a class="nav-item" href="#testing"><span class="num">24</span> Testing (Mocha)</a>
+  <a class="nav-item" href="#polyfills"><span class="num">25</span> Polyfills</a>
+  <a class="nav-item" href="#objects"><span class="num">26</span> Objects</a>
 
   <div class="nav-section-label">Practice</div>
   <a class="nav-item" href="#quiz"><span class="num">★</span> Quick Quiz</a>
@@ -631,7 +637,7 @@
     <h1>JS <span>Fundamentals</span><br>Reference</h1><h2>-Shivansh Singh</h2>
     <p class="desc">From introduction to arrow functions — everything you need, nothing you don't.</p>
     <div class="stats-row">
-      <div class="stat"><div class="val">20</div><div class="label">Chapters</div></div>
+      <div class="stat"><div class="val">24+</div><div class="label">Chapters</div></div>
       <div class="stat"><div class="val">8</div><div class="label">Data Types</div></div>
       <div class="stat"><div class="val">∞</div><div class="label">Reps needed</div></div>
     </div>
@@ -681,6 +687,134 @@
       <div class="kv-item"><div class="kv-key">Dart</div><div class="kv-val">Standalone, by Google</div></div>
       <div class="kv-item"><div class="kv-key">Kotlin</div><div class="kv-val">Modern, targets browser/Node</div></div>
     </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 02 CODE EDITORS -->
+  <section class="section" id="editors">
+    <div class="section-pill"><span class="dot"></span>Chapter 02</div>
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Code Editors</h2>
+    </div>
+    <p>Two main types: <strong>IDEs</strong> and <strong>Lightweight Editors</strong> — many developers use one of each.</p>
+
+    <h3>IDEs — Integrated Development Environments</h3>
+    <p>Powerful, project-level editors. Features: multi-file navigation, project-wide autocompletion, git integration, testing environments.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Editor</th><th>Platform</th><th>Cost</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>Visual Studio Code</code></td><td>Cross-platform</td><td>Free</td><td>Recommended for frontend</td></tr>
+          <tr><td><code>WebStorm</code></td><td>Cross-platform</td><td>Paid</td><td>JetBrains family</td></tr>
+          <tr><td><code>Visual Studio</code></td><td>Windows only</td><td>Paid (free Community)</td><td>Great for .NET + JS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">Most paid IDEs offer trial periods.</div>
+
+    <h3>Lightweight Editors</h3>
+    <p>Fast, simple — ideal for quickly opening/editing single files. Can be extended with plugins for syntax analysis and autocompletion, blurring the line with IDEs.</p>
+    <div class="kv-grid">
+      <div class="kv-item"><div class="kv-key">Sublime Text</div><div class="kv-val">Cross-platform, shareware</div></div>
+      <div class="kv-item"><div class="kv-key">Notepad++</div><div class="kv-val">Windows, free</div></div>
+      <div class="kv-item"><div class="kv-key">Vim / Emacs</div><div class="kv-val">Powerful if you know how to use them</div></div>
+    </div>
+
+    <h3>Author's Recommendation</h3>
+    <ul>
+      <li>Frontend-heavy → <strong>Visual Studio Code</strong></li>
+      <li>Other languages with some frontend → XCode (Mac), Visual Studio (Windows), or JetBrains family</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 03 DEVELOPER CONSOLE -->
+  <section class="section" id="console">
+    <div class="section-pill"><span class="dot"></span>Chapter 03</div>
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Developer Console</h2>
+    </div>
+    <p>Browser developer tools let you see errors, run commands, and inspect scripts — hidden from regular users by default.</p>
+
+    <h3>Opening Developer Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Browser</th><th>Shortcut</th></tr></thead>
+        <tbody>
+          <tr><td>Chrome (Windows/Linux)</td><td><code>F12</code></td></tr>
+          <tr><td>Chrome (Mac)</td><td><code>Cmd + Opt + J</code></td></tr>
+          <tr><td>Firefox, Edge, others</td><td><code>F12</code></td></tr>
+          <tr><td>Safari (Mac only)</td><td><code>Cmd + Opt + C</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">Safari extra step: Enable via Settings → Advanced → check "Develop menu" first.</div>
+
+    <h3>Chrome Console</h3>
+    <ul>
+      <li>Opens on the <strong>Console</strong> tab by default</li>
+      <li>Red messages = errors (e.g. unknown command)</li>
+      <li>Clickable link on the right shows the exact file & line number of the error</li>
+      <li>Blue <code>&gt;</code> = command line to type and run JavaScript (press Enter to run)</li>
+    </ul>
+
+    <h3>Multi-line Input</h3>
+    <p>Press <strong>Shift + Enter</strong> to add a new line without executing — useful for entering longer code blocks.</p>
+
+    <div class="callout tip">Chrome and Firefox have the best developer tools. Most developers pick one as their favourite and switch only for browser-specific issues.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 04 SCRIPTS & EXTERNAL SCRIPTS -->
+  <section class="section" id="scripts">
+    <div class="section-pill"><span class="dot"></span>Chapter 04</div>
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Modern Markup &amp; External Scripts</h2>
+    </div>
+
+    <h3>Outdated &lt;script&gt; Attributes</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Attribute</th><th>Old Use</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>type="text/javascript"</code></td><td>Required in HTML4</td><td>Not required anymore</td></tr>
+          <tr><td><code>language="javascript"</code></td><td>Specified script language</td><td>Obsolete — JS is default</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">Old comment trick — code wrapped in <code>&lt;!-- ... //--&gt;</code> inside &lt;script&gt; was used to hide JS from ancient browsers. Seeing this = very old code.</div>
+
+    <h3>External Scripts</h3>
+    <pre><code>&lt;script src="/path/to/script.js"&gt;&lt;/script&gt;   // absolute path
+&lt;script src="script.js"&gt;&lt;/script&gt;             // relative path
+&lt;script src="https://example.com/script.js"&gt;&lt;/script&gt;  // full URL
+
+// Multiple scripts = multiple tags:
+&lt;script src="/js/script1.js"&gt;&lt;/script&gt;
+&lt;script src="/js/script2.js"&gt;&lt;/script&gt;</code></pre>
+
+    <h3>Why External Files?</h3>
+    <ul>
+      <li>Browser downloads once and <strong>caches</strong> it</li>
+      <li>Other pages reuse the cache → less traffic, faster load</li>
+    </ul>
+
+    <h3>src + Inline Code Don't Mix</h3>
+    <p>If <code>src</code> is set, any inline code inside the tag is <strong>ignored</strong>.</p>
+    <pre><code>// WRONG — alert(1) is ignored
+&lt;script src="file.js"&gt;
+  alert(1);
+&lt;/script&gt;
+
+// CORRECT — split into two tags
+&lt;script src="file.js"&gt;&lt;/script&gt;
+&lt;script&gt;alert(1);&lt;/script&gt;</code></pre>
   </section>
 
   <hr class="divider">
@@ -802,6 +936,50 @@ typeof alert        // "function"
 </section>
 <hr class="divider">
 
+  <!-- 09 INTERACTION -->
+  <section class="section" id="interaction">
+    <div class="section-pill"><span class="dot"></span>Chapter 09</div>
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>Interaction: alert, prompt, confirm</h2>
+    </div>
+    <p>Three browser-specific <strong>modal functions</strong> to interact with the visitor. All pause script execution and block page interaction.</p>
+
+    <h3>alert — show a message</h3>
+    <pre><code>alert("Hello");
+// Returns: undefined (informational only)
+// Pauses until OK is pressed</code></pre>
+
+    <h3>prompt — ask for input</h3>
+    <pre><code>result = prompt(title, [default]);
+
+let age = prompt('How old are you?', 100);
+alert(`You are ${age} years old!`);
+// OK  → returns the entered string
+// Cancel / Esc → returns null</code></pre>
+    <div class="callout warn">IE may insert "undefined" if no default is given — pass <code>''</code> as the second argument for compatibility.</div>
+
+    <h3>confirm — ask yes/no</h3>
+    <pre><code>let isBoss = confirm("Are you the boss?");
+// OK     → true
+// Cancel → false</code></pre>
+
+    <h3>Return Value Reference</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Function</th><th>OK</th><th>Cancel / Esc</th></tr></thead>
+        <tbody>
+          <tr><td><code>alert</code></td><td>undefined</td><td>—</td></tr>
+          <tr><td><code>prompt</code></td><td>string entered</td><td>null</td></tr>
+          <tr><td><code>confirm</code></td><td>true</td><td>false</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">Window position and appearance are decided by the browser — cannot be customised. Browser-only, not available in Node.js.</div>
+  </section>
+
+  <hr class="divider">
+
   <!-- 10 TYPE CONVERSION -->
   <section class="section" id="conversion">
     <div class="section-pill"><span class="dot"></span>Chapter 10</div>
@@ -907,6 +1085,65 @@ null == 0    // false — == uses different rules, null only == undefined
 undefined    // always false in comparisons (converts to NaN)</code></pre>
 
     <div class="callout danger">Never use <code>&gt; &lt; &gt;= &lt;=</code> with variables that could be null/undefined. Check first.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 13 CONDITIONALS -->
+  <section class="section" id="conditionals">
+    <div class="section-pill"><span class="dot"></span>Chapter 13</div>
+    <div class="section-header">
+      <span class="section-num">13</span>
+      <h2>Conditional Branching: if and ?</h2>
+    </div>
+
+    <p>Runs code only if the condition is true. Condition is converted to boolean automatically.</p>
+
+    <h3>if / else if / else</h3>
+    <pre><code>if (year < 2015) {
+  alert("Too early");
+} else if (year > 2015) {
+  alert("Too late");
+} else {
+  alert("Exactly!");
+}</code></pre>
+    <div class="callout tip">Always use curly braces <code>{}</code> even for single lines — better readability.</div>
+
+    <h3>Falsy vs Truthy in conditions</h3>
+    <div class="tag-row">
+      <span class="tag falsy">0</span>
+      <span class="tag falsy">""</span>
+      <span class="tag falsy">null</span>
+      <span class="tag falsy">undefined</span>
+      <span class="tag falsy">NaN</span>
+      <span class="tag truthy">everything else → truthy</span>
+    </div>
+
+    <h3>Ternary Operator ?</h3>
+    <p>Shorthand for simple if/else <em>assignments</em>.</p>
+    <pre><code>let result = condition ? value1 : value2;
+
+let accessAllowed = (age > 18) ? true : false;
+// Even simpler — comparison already returns boolean:
+let accessAllowed = age > 18;
+
+// Chaining:
+let message = (age < 3) ? 'Hi, baby!' :
+  (age < 18) ? 'Hello!' :
+  (age < 100) ? 'Greetings!' :
+  'What an unusual age!';</code></pre>
+
+    <h3>? vs if — When to Use What</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Use ?</th><th>Use if</th></tr></thead>
+        <tbody>
+          <tr><td>Assigning a value based on condition</td><td>Executing different blocks of code</td></tr>
+          <tr><td>Short, simple conditions</td><td>Complex logic, multiple statements</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout danger">Don't use <code>?</code> as a replacement for <code>if</code> to execute code — it hurts readability. Use <code>if</code> for actions.</div>
   </section>
 
   <hr class="divider">
@@ -1022,6 +1259,63 @@ for (;;) { /* infinite loop */ }</code></pre>
 
   <hr class="divider">
 
+  <!-- 17 SWITCH -->
+  <section class="section" id="switch">
+    <div class="section-pill"><span class="dot"></span>Chapter 17</div>
+    <div class="section-header">
+      <span class="section-num">17</span>
+      <h2>The switch Statement</h2>
+    </div>
+    <p>Replaces multiple <code>if</code> checks with a more descriptive way to compare a value against multiple variants.</p>
+
+    <h3>Syntax</h3>
+    <pre><code>switch(x) {
+  case 'value1':   // if (x === 'value1')
+    ...
+    [break]
+  case 'value2':
+    ...
+    [break]
+  default:
+    ...
+    [break]
+}</code></pre>
+    <ul>
+      <li>Uses <strong>strict equality</strong> (<code>===</code>) — type and value must both match</li>
+      <li>Execution starts from matched <code>case</code> and runs until nearest <code>break</code> or end of switch</li>
+      <li>If no case matches, <code>default</code> block runs (if it exists)</li>
+    </ul>
+
+    <h3>Fall-through (no break)</h3>
+    <p>Without <code>break</code>, execution continues into the next case automatically — no check is done.</p>
+    <pre><code>let a = 4;
+switch (a) {
+  case 3: alert('Too small');
+  case 4: alert('Exactly!');   // starts here
+  case 5: alert('Too big');    // also runs!
+  default: alert("Unknown");   // also runs!
+}</code></pre>
+
+    <h3>Grouping Cases</h3>
+    <p>Stack cases without break to share the same code block — deliberate use of fall-through:</p>
+    <pre><code>case 3:
+case 5:
+  alert('Wrong!');
+  break;</code></pre>
+
+    <h3>Expressions as Arguments</h3>
+    <p>Both <code>switch(x)</code> and <code>case</code> values can be arbitrary expressions:</p>
+    <pre><code>switch (+a) {
+  case b + 1:
+    alert("this runs!");
+    break;
+}</code></pre>
+
+    <div class="callout danger"><strong>Type matters:</strong> <code>prompt()</code> always returns a string. <code>case 3</code> (number) will never match <code>"3"</code> (string) — mismatched types create silent dead code.</div>
+  </section>
+
+  <hr class="divider">
+
   <!-- 18 FUNCTIONS -->
   <section class="section" id="functions">
     <div class="section-pill"><span class="dot"></span>Chapter 18</div>
@@ -1116,6 +1410,385 @@ const add = (a, b) => {
     </div>
 
     <div class="callout warn">Arrow functions don't have their own <code>this</code> — they inherit from surrounding scope. Crucial difference from regular functions.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 21 DEBUGGING -->
+  <section class="section" id="debugging">
+    <div class="section-pill"><span class="dot"></span>Chapter 21</div>
+    <div class="section-header">
+      <span class="section-num">21</span>
+      <h2>Debugging in the Browser</h2>
+    </div>
+
+    <h3>3 Ways to Pause a Script</h3>
+    <ul>
+      <li><strong>Breakpoint</strong> — click a line number in the Sources panel</li>
+      <li><strong><code>debugger;</code></strong> — write it directly in code; only works when DevTools is open</li>
+      <li><strong>Error</strong> — enable the "pause on error" button in DevTools</li>
+    </ul>
+
+    <h3>Sources Panel — 3 Panes</h3>
+    <ul>
+      <li><strong>File Navigator</strong> — all files attached to the page</li>
+      <li><strong>Code Editor</strong> — source code</li>
+      <li><strong>JS Debugging pane</strong> — the actual debugger controls</li>
+    </ul>
+
+    <h3>Breakpoints</h3>
+    <ul>
+      <li>Click a line number to set. Click again to remove.</li>
+      <li>Right-click → <strong>conditional breakpoint</strong> — only triggers when expression is truthy</li>
+      <li>All breakpoints listed in right panel — can disable/remove from there</li>
+    </ul>
+
+    <h3>Execution Controls</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Button</th><th>Hotkey</th><th>Does</th></tr></thead>
+        <tbody>
+          <tr><td>Resume</td><td><code>F8</code></td><td>Continue until next breakpoint</td></tr>
+          <tr><td>Step</td><td><code>F9</code></td><td>Run next statement, goes INTO functions</td></tr>
+          <tr><td>Step over</td><td><code>F10</code></td><td>Run next statement, SKIPS function internals</td></tr>
+          <tr><td>Step into</td><td><code>F11</code></td><td>Like Step but handles async correctly</td></tr>
+          <tr><td>Step out</td><td><code>Shift+F11</code></td><td>Run to end of current function</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">Right-click a line → "Continue to here" — jump forward without setting a breakpoint.</div>
+
+    <h3>Inspect Panel (when paused)</h3>
+    <ul>
+      <li><strong>Watch</strong> — track any expression, auto-updates as you step</li>
+      <li><strong>Call Stack</strong> — shows nested call chain; click any frame to jump to it</li>
+      <li><strong>Scope</strong> — local and global variables at current point</li>
+    </ul>
+
+    <h3>console.log</h3>
+    <pre><code>console.log("value:", i);  // open Console tab or press Esc</code></pre>
+    <div class="callout tip">Use <code>console.log</code> for quick checks, breakpoints for complex bugs where you need to inspect state step by step.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 22 CODING STYLE -->
+  <section class="section" id="codestyle">
+    <div class="section-pill"><span class="dot"></span>Chapter 22</div>
+    <div class="section-header">
+      <span class="section-num">22</span>
+      <h2>Coding Style</h2>
+    </div>
+
+    <h3>Curly Braces — Egyptian Style</h3>
+    <p>Opening brace on same line, space before bracket.</p>
+    <pre><code>if (condition) {   // ✅ correct
+  // code
+}
+
+if (condition)     // ❌ never split without braces
+  doSomething();</code></pre>
+    <p>One-liner acceptable only if very short: <code>if (n &lt; 0) return null;</code></p>
+
+    <h3>Line Length</h3>
+    <p>Max 80 or 120 chars (team decides). Split long conditions:</p>
+    <pre><code>if (
+  id === 123 &&
+  moonPhase === 'Waning Gibbous'
+) {
+  letTheSorceryBegin();
+}</code></pre>
+
+    <h3>Indents</h3>
+    <ul>
+      <li><strong>Horizontal</strong> — 2 or 4 spaces (spaces preferred over tabs)</li>
+      <li><strong>Vertical</strong> — empty lines between logical blocks. No more than 9 lines without a break.</li>
+    </ul>
+
+    <h3>Nesting — Keep It Shallow</h3>
+    <p>Use early returns and <code>continue</code> to avoid extra levels:</p>
+    <pre><code>// ❌ nested
+if (cond) { doSomething(); }
+
+// ✅ flat
+if (!cond) continue;
+doSomething();</code></pre>
+
+    <h3>Function Placement</h3>
+    <p>Code first, helpers below. Reader sees <em>what</em> the code does before <em>how</em>.</p>
+
+    <h3>Semicolons</h3>
+    <p>Always write them. ASI is unreliable.</p>
+
+    <h3>Style Guides & Linters</h3>
+    <ul>
+      <li>Popular guides: <strong>Google</strong>, <strong>Airbnb</strong>, <strong>StandardJS</strong></li>
+      <li>Linters autocheck style AND catch bugs — use <strong>ESLint</strong></li>
+    </ul>
+    <pre><code>npm install -g eslint
+// .eslintrc:
+{
+  "extends": "eslint:recommended",
+  "env": { "browser": true, "es6": true },
+  "rules": { "indent": 2 }
+}</code></pre>
+    <div class="callout tip">One rule to remember: every decision should answer — does this make the code more readable and harder to break?</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 23 COMMENTS -->
+  <section class="section" id="comments">
+    <div class="section-pill"><span class="dot"></span>Chapter 23</div>
+    <div class="section-header">
+      <span class="section-num">23</span>
+      <h2>Comments</h2>
+    </div>
+
+    <h3>Bad Comments — explaining WHAT the code does</h3>
+    <p>If you need to explain <em>what</em>, rewrite the code instead. A good function name IS the comment.</p>
+    <pre><code>// ❌ bad — the comment just restates the code
+// loops through items and checks if prime
+for (let i = 2; i < n; i++) { ... }
+
+// ✅ no comment needed — function name explains it
+if (!isPrime(i)) continue;</code></pre>
+
+    <h3>Good Comments — comment the WHY, not the WHAT</h3>
+    <p>Three things worth commenting:</p>
+    <ul>
+      <li><strong>Architecture</strong> — high-level overview of how components interact. Use UML diagrams for complex systems.</li>
+      <li><strong>Function docs (JSDoc)</strong> — parameters, return value, usage:</li>
+    </ul>
+    <pre><code>/**
+ * Returns x raised to the n-th power.
+ * @param {number} x The number to raise.
+ * @param {number} n The power, must be natural.
+ * @return {number} x raised to the n-th power.
+ */
+function pow(x, n) { ... }
+// JSDoc3 can auto-generate HTML docs. Editors use them for autocomplete.</code></pre>
+    <ul>
+      <li><strong>Why this solution</strong> — most underrated comment. Explain why you chose this approach, especially if a more "obvious" solution was tried and rejected.</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Comment this</th><th>Don't comment this</th></tr></thead>
+        <tbody>
+          <tr><td>Overall architecture</td><td>What the code does</td></tr>
+          <tr><td>Function usage/params</td><td>How a loop works</td></tr>
+          <tr><td>Non-obvious decisions</td><td>Things a good function name already says</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">Absence of comments is also a skill — clean code that doesn't need them is the goal.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 24 TESTING -->
+  <section class="section" id="testing">
+    <div class="section-pill"><span class="dot"></span>Chapter 24</div>
+    <div class="section-header">
+      <span class="section-num">24</span>
+      <h2>Automated Testing with Mocha</h2>
+    </div>
+    <p>Manual re-runs miss things. Fix <code>f(2)</code>, forget to recheck <code>f(1)</code>. Automated tests catch regressions automatically.</p>
+
+    <h3>BDD — Behavior Driven Development</h3>
+    <p>Spec = tests + documentation + examples in one. Write the spec first, then implement.</p>
+    <ul>
+      <li>Write spec for basic functionality</li>
+      <li>Write initial implementation</li>
+      <li>Run tests — fix until they pass</li>
+      <li>Add more test cases → tests fail → update implementation → tests pass</li>
+      <li>Repeat until done</li>
+    </ul>
+
+    <h3>Spec Structure</h3>
+    <pre><code>describe("pow", function() {        // group — what are we testing?
+  it("raises to n-th power", function() {  // one use case
+    assert.equal(pow(2, 3), 8);            // check expected result
+  });
+});</code></pre>
+    <ul>
+      <li><strong>describe</strong> — groups related tests</li>
+      <li><strong>it</strong> — one specific use case, human-readable title</li>
+      <li><strong>assert.equal</strong> — checks two values are equal, throws if not</li>
+    </ul>
+    <div class="callout warn">One <code>it</code> = one thing. If you have two independent checks, split into two <code>it</code> blocks — when an assert fails, the <code>it</code> block stops and you lose info about what else failed.</div>
+
+    <h3>Generating Tests in a Loop</h3>
+    <pre><code>for (let x = 1; x <= 5; x++) {
+  it(`${x} in the power 3 is ${x**3}`, function() {
+    assert.equal(pow(x, 3), x**3);
+  });
+}</code></pre>
+
+    <h3>Hooks</h3>
+    <pre><code>before(() => ...)       // runs once before ALL tests
+after(() => ...)        // runs once after ALL tests
+beforeEach(() => ...)   // runs before EACH it
+afterEach(() => ...)    // runs after EACH it</code></pre>
+
+    <h3>Common Chai Assertions</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Assertion</th><th>Checks</th></tr></thead>
+        <tbody>
+          <tr><td><code>assert.equal(a, b)</code></td><td>a == b (loose)</td></tr>
+          <tr><td><code>assert.strictEqual(a, b)</code></td><td>a === b (strict)</td></tr>
+          <tr><td><code>assert.isTrue(v)</code></td><td>v === true</td></tr>
+          <tr><td><code>assert.isFalse(v)</code></td><td>v === false</td></tr>
+          <tr><td><code>assert.isNaN(v)</code></td><td>v is NaN</td></tr>
+          <tr><td><code>assert.notEqual(a, b)</code></td><td>inverse of equal</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">Libraries: <strong>Mocha</strong> (test runner — provides describe, it), <strong>Chai</strong> (assertions), <strong>Sinon</strong> (spies, mocks, stubs).</div>
+    <div class="callout tip">Without tests — either ship bugs or become too afraid to touch old code. Both are bad.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 25 POLYFILLS -->
+  <section class="section" id="polyfills">
+    <div class="section-pill"><span class="dot"></span>Chapter 25</div>
+    <div class="section-header">
+      <span class="section-num">25</span>
+      <h2>Polyfills &amp; Transpilers</h2>
+    </div>
+    <p>JS evolves fast. New features don't work on older engines. Two tools fix this.</p>
+
+    <h3>Transpiler</h3>
+    <p>Converts modern <em>syntax</em> to older equivalent syntax. Most popular: <strong>Babel</strong>. Runs automatically via webpack.</p>
+    <pre><code>// your code
+height = height ?? 100;
+
+// after transpiler (Babel):
+height = (height !== null && height !== undefined) ? height : 100;</code></pre>
+
+    <h3>Polyfill</h3>
+    <p>Adds missing built-in <em>functions</em> that older engines don't have. Popular library: <strong>core-js</strong>.</p>
+    <pre><code>if (!Math.trunc) {
+  Math.trunc = function(number) {
+    return number < 0 ? Math.ceil(number) : Math.floor(number);
+  };
+}</code></pre>
+
+    <h3>Which One to Use?</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Problem</th><th>Tool</th></tr></thead>
+        <tbody>
+          <tr><td>New syntax/operators (<code>??</code>, <code>=></code>)</td><td>Transpiler</td></tr>
+          <tr><td>Missing functions (<code>Math.trunc</code>, <code>Array.from</code>)</td><td>Polyfill</td></tr>
+          <tr><td>Both</td><td>Both</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>JS features → <strong>compat-table.github.io/compat-table/es6</strong></li>
+      <li>Browser APIs → <strong>caniuse.com</strong></li>
+    </ul>
+    <div class="callout tip">Write modern code, let tooling handle backwards compatibility. Don't dumb down your code manually.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 26 OBJECTS -->
+  <section class="section" id="objects">
+    <div class="section-pill"><span class="dot"></span>Chapter 26</div>
+    <div class="section-header">
+      <span class="section-num">26</span>
+      <h2>Objects</h2>
+    </div>
+    <p>Used to store <strong>keyed collections</strong> of data and complex entities. Objects penetrate almost every aspect of JavaScript.</p>
+
+    <h3>What is an Object?</h3>
+    <ul>
+      <li>One of 8 data types — the other 7 are "primitive" (hold a single value)</li>
+      <li>Stores <strong>key-value pairs</strong> called properties</li>
+      <li>Think of it as a cabinet with signed files — easy to find, add, or remove by key</li>
+      <li>Keys must be <strong>strings or symbols</strong> (usually strings); values can be anything</li>
+    </ul>
+
+    <h3>Creating an Object</h3>
+    <pre><code>let user = new Object(); // object constructor syntax
+let user = {};           // object literal syntax (preferred)
+
+// With properties inline:
+let user = { name: "John", age: 30 };</code></pre>
+    <div class="callout tip">A trailing comma after the last property is allowed and encouraged — makes editing easier.</div>
+
+    <h3>Accessing Properties</h3>
+    <pre><code>user.name          // dot notation — simple keys only
+user["likes birds"] // square brackets — any string, including multiword
+user[key]          // square brackets accept variables and expressions
+                   // dot notation CANNOT do this</code></pre>
+    <ul>
+      <li>Dot requires key to have no spaces, not start with a digit, no special characters (except <code>$</code> and <code>_</code>)</li>
+    </ul>
+
+    <h3>Adding, Modifying, Deleting</h3>
+    <pre><code>user.isAdmin = true;   // add or update
+delete user.age;       // delete a property
+// Accessing a non-existent property returns undefined — no error thrown</code></pre>
+
+    <h3>Computed Properties</h3>
+    <pre><code>let fruit = prompt("Which fruit?", "apple");
+let bag = {
+  [fruit]: 5,              // key taken from variable
+  [fruit + 'Computers']: 5 // expressions also work
+};</code></pre>
+
+    <h3>Property Value Shorthand</h3>
+    <pre><code>// Instead of: { name: name, age: age }
+function makeUser(name, age) {
+  return { name, age };  // shorthand — same result
+}</code></pre>
+
+    <h3>Property Name Limitations</h3>
+    <ul>
+      <li>No restrictions — reserved words like <code>for</code>, <code>let</code>, <code>return</code> are all valid as keys</li>
+      <li>Non-string keys auto-convert to strings — number <code>0</code> becomes string <code>"0"</code></li>
+      <li>Special case: <code>__proto__</code> cannot be set to a non-object value — silently ignores the assignment</li>
+    </ul>
+
+    <h3>Checking if a Property Exists</h3>
+    <pre><code>user.noSuchProp === undefined  // works in most cases
+"key" in object                // safer — the "in" operator
+
+// Why "in" is safer:
+let obj = { test: undefined };
+obj.test              // undefined — looks like missing!
+"test" in obj         // true — correctly detects it exists</code></pre>
+    <div class="callout tip">Explicitly storing <code>undefined</code> is rare — use <code>null</code> for "unknown" or "empty" values instead.</div>
+
+    <h3>The for..in Loop</h3>
+    <pre><code>for (let key in user) {
+  alert(key);        // property name
+  alert(user[key]);  // property value
+}
+// Variable can be named anything: key, prop, etc.
+// Completely different from for(;;)</code></pre>
+
+    <h3>Property Ordering in for..in</h3>
+    <ul>
+      <li><strong>Integer properties</strong> — sorted numerically ascending, regardless of insertion order</li>
+      <li><strong>Non-integer properties</strong> — appear in creation order</li>
+      <li>An "integer property" = string that converts to integer and back unchanged (<code>"49"</code> yes, <code>"+49"</code> or <code>"1.2"</code> no)</li>
+      <li>To preserve insertion order for integer-like keys, prefix them (e.g. <code>"+49"</code>) to make them non-integer</li>
+    </ul>
+
+    <h3>Other Built-in Object Types</h3>
+    <div class="kv-grid">
+      <div class="kv-item"><div class="kv-key">Array</div><div class="kv-val">Ordered data collections</div></div>
+      <div class="kv-item"><div class="kv-key">Date</div><div class="kv-val">Date and time info</div></div>
+      <div class="kv-item"><div class="kv-key">Error</div><div class="kv-val">Error information</div></div>
+    </div>
+    <div class="callout tip">All formally belong to the single "object" data type and extend it — they are not separate types.</div>
   </section>
 
   <hr class="divider">
