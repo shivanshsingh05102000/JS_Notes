@@ -57,6 +57,20 @@
   <a class="nav-item" href="#symbols"><span class="num">31</span> Symbol Type</a>
   <a class="nav-item" href="#toprimitive"><span class="num">32</span> Object → Primitive</a>
 
+  <div class="nav-section-label">Data Structures</div>
+  <a class="nav-item" href="#primitives"><span class="num">33</span> Methods of Primitives</a>
+  <a class="nav-item" href="#numbers"><span class="num">34</span> Numbers</a>
+  <a class="nav-item" href="#strings"><span class="num">35</span> Strings</a>
+  <a class="nav-item" href="#arrays"><span class="num">36</span> Arrays</a>
+  <a class="nav-item" href="#arraymethods"><span class="num">37</span> Array Methods</a>
+  <a class="nav-item" href="#iterables"><span class="num">38</span> Iterables</a>
+  <a class="nav-item" href="#mapset"><span class="num">39</span> Map & Set</a>
+  <a class="nav-item" href="#weakmapset"><span class="num">40</span> WeakMap & WeakSet</a>
+  <a class="nav-item" href="#objkeys"><span class="num">41</span> Object.keys/values/entries</a>
+  <a class="nav-item" href="#destructuring"><span class="num">42</span> Destructuring</a>
+  <a class="nav-item" href="#datetime"><span class="num">43</span> Date & Time</a>
+  <a class="nav-item" href="#json"><span class="num">44</span> JSON Methods</a>
+
   <div class="nav-section-label">Practice</div>
   <a class="nav-item" href="#quiz"><span class="num">★</span> Quick Quiz</a>
 </nav>
@@ -70,7 +84,7 @@
     <h1>JS <span>Fundamentals</span><br>Reference</h1><h2>-Shivansh Singh</h2>
     <p class="desc">From introduction to arrow functions — everything you need, nothing you don't.</p>
     <div class="stats-row">
-      <div class="stat"><div class="val">32</div><div class="label">Chapters</div></div>
+      <div class="stat"><div class="val">43</div><div class="label">Chapters</div></div>
       <div class="stat"><div class="val">8</div><div class="label">Data Types</div></div>
       <div class="stat"><div class="val">∞</div><div class="label">Reps needed</div></div>
     </div>
@@ -1296,6 +1310,527 @@ alert(obj + 2);  // "22" → stage 1: obj → "2", stage 2: "2" + 2 → concat!<
 
   <hr class="divider">
 
+  <!-- 33 METHODS OF PRIMITIVES -->
+  <section class="section" id="primitives">
+    <div class="section-pill"><span class="dot"></span>Chapter 33</div>
+    <div class="section-header"><span class="section-num">33</span><h2>Methods of Primitives</h2></div>
+    <p>JavaScript lets primitives (strings, numbers, booleans, symbols) behave like objects by temporarily wrapping them in a special <strong>object wrapper</strong> when you access a method, then immediately discarding it. This keeps primitives lightweight while still giving them useful functionality.</p>
+    <h3>Key Rules</h3>
+    <ul>
+      <li>There are 7 primitive types: <code>string</code>, <code>number</code>, <code>bigint</code>, <code>boolean</code>, <code>symbol</code>, <code>null</code>, <code>undefined</code></li>
+      <li>When you call a method on a primitive (e.g. <code>"hello".toUpperCase()</code>), JS briefly creates a wrapper object, runs the method, returns the result, then destroys the wrapper</li>
+      <li><code>null</code> and <code>undefined</code> are exceptions — they have no wrapper objects and no methods</li>
+      <li>Using <code>new Number()</code> / <code>new String()</code> etc. is <strong>not recommended</strong> — creates actual objects with unexpected behaviour (always truthy)</li>
+      <li>Using <code>Number()</code> / <code>String()</code> <em>without</em> <code>new</code> is fine — simply converts values between types</li>
+    </ul>
+    <div class="callout danger">Never use <code>new Number(42)</code> — the result is an object, not a number. <code>typeof new Number(42)</code> returns <code>"object"</code>.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 34 NUMBERS -->
+  <section class="section" id="numbers">
+    <div class="section-pill"><span class="dot"></span>Chapter 34</div>
+    <div class="section-header"><span class="section-num">34</span><h2>Numbers in JavaScript</h2></div>
+    <p>Regular numbers are <strong>64-bit IEEE-754 floating point</strong>. BigInt handles integers beyond 2^53 - 1.</p>
+    <h3>Writing Large / Small Numbers</h3>
+    <pre><code>1_000_000_000  // underscore as visual separator — JS ignores it
+1e9            // 1 followed by 9 zeroes = 1 billion
+1e-6           // 0.000001
+
+0xff    // hex = 255
+0b11111111  // binary = 255
+0o377   // octal = 255
+
+(255).toString(16)  // "ff"
+(255).toString(2)   // "11111111"
+(123456).toString(36) // "2n9c" — useful for URL shortening</code></pre>
+    <div class="callout warn">Two dots <code>..</code> required when calling directly on a number literal, or wrap in parentheses. One dot makes JS think it's a decimal point.</div>
+    <h3>Rounding Methods</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Method</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><code>Math.floor</code></td><td>Always rounds down (<code>-1.1 → -2</code>)</td></tr>
+          <tr><td><code>Math.ceil</code></td><td>Always rounds up (<code>-1.1 → -1</code>)</td></tr>
+          <tr><td><code>Math.round</code></td><td>Nearest integer, .5 rounds up</td></tr>
+          <tr><td><code>Math.trunc</code></td><td>Chops decimal, ignores sign (<code>-1.1 → -1</code>)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <pre><code>Math.round(1.23456 * 100) / 100  // 1.23 — multiply/divide trick
+num.toFixed(2)                    // "1.23" — returns a STRING
++num.toFixed(2)                   // 1.23 — convert back with unary +</code></pre>
+    <h3>Floating Point Precision — Critical Gotcha</h3>
+    <pre><code>0.1 + 0.2 === 0.3  // false
+0.1 + 0.2          // 0.30000000000000004
+
+// Fix:
++(0.1 + 0.2).toFixed(2)   // store as integers (e.g. cents not dollars)</code></pre>
+    <div class="callout danger">0.1 and 0.2 are infinite repeating fractions in binary. IEEE-754 rounds them, errors accumulate. Never trust raw float equality.</div>
+    <h3>NaN and Infinity Checks</h3>
+    <pre><code>isNaN("str")           // true — converts to number first
+Number.isNaN("str")    // false — checks type first (must be number type)
+isFinite("123")        // true — converts first
+Number.isFinite("123") // false — must be number type
+
+// NaN === NaN is false. Always. Use isNaN() to check.
+Object.is(NaN, NaN)  // true  ← unlike ===
+Object.is(0, -0)     // false ← unlike ===</code></pre>
+    <h3>parseInt and parseFloat — Soft Parsing</h3>
+    <pre><code>parseInt("100px")    // 100 — reads until it can't
+parseFloat("12.5em") // 12.5
+parseInt("a123")     // NaN — first char not a digit
+parseInt("ff", 16)   // 255 — second arg sets the base
+
+// + and Number() are strict — "100px" gives NaN
+// Use parseInt/parseFloat when input has units or mixed content</code></pre>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 35 STRINGS -->
+  <section class="section" id="strings">
+    <div class="section-pill"><span class="dot"></span>Chapter 35</div>
+    <div class="section-header"><span class="section-num">35</span><h2>Strings in JavaScript</h2></div>
+    <p>Strings are <strong>immutable sequences of UTF-16 characters</strong>. You never modify — you always create new.</p>
+    <h3>Quote Types</h3>
+    <pre><code>'single'   // basic
+"double"   // basic, identical to single
+`backtick` // template literals — embed ${expressions}, multiline support
+
+"\n".length  // 1 — special chars are one character, not two</code></pre>
+    <h3>Accessing Characters</h3>
+    <pre><code>str[0]      // first character, undefined for negative index
+str.at(-1)  // last character — at() supports negatives, [] does not
+str.length  // property, NOT a method — str.length() throws</code></pre>
+    <h3>Searching</h3>
+    <pre><code>str.indexOf(substr)       // returns position or -1
+str.lastIndexOf(substr)   // searches from end
+
+// Critical gotcha:
+if (str.indexOf("Widget"))       // WRONG — 0 is falsy!
+if (str.indexOf("Widget") != -1) // CORRECT
+
+str.includes(substr)   // true/false
+str.startsWith(substr)
+str.endsWith(substr)</code></pre>
+    <h3>Getting a Substring — Just Use slice</h3>
+    <pre><code>str.slice(start, end)      // supports negatives ✅
+str.substring(start, end)  // swaps if start > end, no negatives
+str.substr(start, length)  // deprecated — avoid
+
+"stringify".slice(0, 5)    // "strin"
+"stringify".slice(-4, -1)  // "gif"
+"stringify".slice(2)       // "ringify" — no end = goes to finish</code></pre>
+    <div class="callout tip">Forget <code>substring</code> and <code>substr</code>. Only remember <code>slice</code> — it supports negatives and works everywhere.</div>
+    <h3>Comparing Strings</h3>
+    <pre><code>'a' > 'Z'              // true — lowercase codes are higher than uppercase
+'Österreich' > 'Zealand' // true — special chars have high codes
+
+// For correct human-readable sorting:
+'Österreich'.localeCompare('Zealand') // -1 (correctly less than)</code></pre>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 36 ARRAYS -->
+  <section class="section" id="arrays">
+    <div class="section-pill"><span class="dot"></span>Chapter 36</div>
+    <div class="section-header"><span class="section-num">36</span><h2>Arrays in JavaScript</h2></div>
+    <pre><code>let arr = [];           // always use this
+let arr = new Array();  // avoid
+new Array(2)            // trap — creates [empty × 2], not [2]
+
+arr[0]      // first element, undefined if missing
+arr.at(-1)  // last element — .at() supports negatives</code></pre>
+    <h3>Four Core Methods</h3>
+    <pre><code>push(item)    // add to end — fast O(1)
+pop()         // remove from end — fast O(1)
+unshift(item) // add to beginning — slow O(n)
+shift()       // remove from beginning — slow O(n)</code></pre>
+    <div class="callout warn"><code>push/pop</code> are fast — nothing needs renumbering. <code>shift/unshift</code> are slow — every element index shifts.</div>
+    <h3>Critical: Arrays Are Objects</h3>
+    <ul>
+      <li>Passed by <strong>reference</strong>, not value — modifying through one variable affects all</li>
+      <li>Never use <code>for...in</code> on arrays — iterates non-numeric properties too and is 10–100× slower</li>
+      <li>Never compare arrays with <code>==</code> or <code>===</code> — it compares references. <code>[] == []</code> is <code>false</code></li>
+    </ul>
+    <pre><code>// Arrays toString
+[] + 1      // "1"
+[1] + 1     // "11"
+[1,2] + 1   // "1,21"
+
+// Type checking
+typeof []         // "object" — useless
+Array.isArray([]) // true — always use this</code></pre>
+    <h3>length Gotcha</h3>
+    <p>It's <strong>highest index + 1</strong>, not a count. Manually decreasing length truncates the array permanently. <code>arr.length = 0</code> clears the array.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 37 ARRAY METHODS -->
+  <section class="section" id="arraymethods">
+    <div class="section-pill"><span class="dot"></span>Chapter 37</div>
+    <div class="section-header"><span class="section-num">37</span><h2>Array Methods</h2></div>
+    <h3>Mutating Methods — Modify Original</h3>
+    <pre><code>splice(start, deleteCount, ...items)  // delete/insert/replace at position
+arr.splice(1, 1)           // delete 1 element at index 1
+arr.splice(0, 3, "a", "b") // replace first 3 with "a", "b"
+arr.splice(2, 0, "x")      // insert "x" at index 2, delete nothing
+
+reverse()   // reverses in place
+sort(fn)    // sorts in place</code></pre>
+    <div class="callout danger"><code>delete arr[1]</code> is wrong — leaves a hole, length unchanged. Always use <code>splice</code>.</div>
+    <h3>Non-Mutating — Return New Array</h3>
+    <pre><code>slice(start, end)    // copy portion, supports negatives
+concat(...items)     // merge arrays/values into new array
+map(fn)              // transform every element, return new array
+filter(fn)           // keep elements where fn returns true
+
+arr.slice()          // no args = full copy (use before transforms)</code></pre>
+    <h3>Search Methods</h3>
+    <pre><code>indexOf(item)    // returns index or -1, uses ===
+includes(item)   // true/false — handles NaN correctly, indexOf doesn't
+find(fn)         // returns first matching element or undefined
+findIndex(fn)    // returns index of first match or -1
+filter(fn)       // returns ALL matching elements</code></pre>
+    <h3>sort Default Is Broken for Numbers</h3>
+    <pre><code>[1, 2, 15].sort()           // [1, 15, 2] — sorts as strings, WRONG
+[1, 2, 15].sort((a, b) => a - b)  // [1, 2, 15] — correct
+
+// For strings with special chars:
+arr.sort((a, b) => a.localeCompare(b))</code></pre>
+    <h3>reduce — Collapse Array to Single Value</h3>
+    <pre><code>arr.reduce((acc, curr) => acc + curr, initialValue)
+
+[1,2,3,4,5].reduce((sum, n) => sum + n, 0)  // 15</code></pre>
+    <div class="callout warn">Initial value is mandatory — without it, an empty array throws an error.</div>
+    <h3>Other Essentials</h3>
+    <pre><code>forEach(fn)            // side effects only — return value is always discarded
+some(fn)               // true if at least one passes — like ||
+every(fn)              // true if all pass — like &&
+
+"a,b,c".split(",")     // ["a","b","c"]
+["a","b","c"].join("-") // "a-b-c"</code></pre>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 38 ITERABLES -->
+  <section class="section" id="iterables">
+    <div class="section-pill"><span class="dot"></span>Chapter 38</div>
+    <div class="section-header"><span class="section-num">38</span><h2>Iterables</h2></div>
+    <p>Any object that implements <code>Symbol.iterator</code>. That method must return an iterator — an object with a <code>next()</code> method that returns <code>{ done: false, value: x }</code> or <code>{ done: true }</code>.</p>
+    <pre><code>let range = {
+  from: 1, to: 5,
+  [Symbol.iterator]() {
+    return {
+      current: this.from, last: this.to,
+      next() {
+        if (this.current <= this.last)
+          return { done: false, value: this.current++ };
+        return { done: true };
+      }
+    };
+  }
+};
+
+for (let num of range) {} // 1,2,3,4,5</code></pre>
+    <h3>Iterable vs Array-like — Not the Same</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Has Symbol.iterator</th><th>Has indexes + length</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Iterable</strong></td><td>✅</td><td>Not required</td></tr>
+          <tr><td><strong>Array-like</strong></td><td>Not required</td><td>✅</td></tr>
+          <tr><td><strong>Array</strong></td><td>✅</td><td>✅</td></tr>
+          <tr><td><strong>String</strong></td><td>✅</td><td>✅</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Array.from — The Bridge</h3>
+    <pre><code>Array.from(arrayLike)          // real array — .pop() works now
+Array.from(range)              // [1,2,3,4,5]
+Array.from(range, n => n * n)  // [1,4,9,16,25] — with mapping
+
+// Also handles surrogate pairs correctly:
+Array.from("𝒳😂")  // correct — str.split('') breaks on emoji</code></pre>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 39 MAP AND SET -->
+  <section class="section" id="mapset">
+    <div class="section-pill"><span class="dot"></span>Chapter 39</div>
+    <div class="section-header"><span class="section-num">39</span><h2>Map &amp; Set</h2></div>
+    <h3>Map — Object but Keys Can Be Anything</h3>
+    <pre><code>map.set('1', 'str1')
+map.set(1,   'num1')
+map.set(true,'bool1')
+
+map.get(1)    // 'num1'
+map.get('1')  // 'str1' — different keys
+
+// API:
+new Map()
+map.set(key, value)  // chainable
+map.get(key)
+map.has(key)
+map.delete(key)
+map.clear()
+map.size             // property, not method</code></pre>
+    <div class="callout danger">Never use <code>map[key]</code> — that treats it like a plain object and loses all Map benefits. Always use <code>.set()</code> and <code>.get()</code>.</div>
+    <h3>Objects as Keys — The Killer Feature</h3>
+    <pre><code>let john = { name: "John" };
+visitsMap.set(john, 123);
+visitsMap.get(john); // 123 — works perfectly
+
+// Plain objects stringify all keys to "[object Object]" — everything collides.
+// Map preserves reference identity.</code></pre>
+    <h3>Iterating Map</h3>
+    <pre><code>map.keys()    // iterable of keys
+map.values()  // iterable of values
+map.entries() // iterable of [key, value] — default for..of
+
+// Convert:
+new Map(Object.entries(obj))   // Object → Map
+Object.fromEntries(map)        // Map → Object</code></pre>
+    <h3>Set — Unique Values Only</h3>
+    <pre><code>new Set([iterable])
+set.add(value)    // chainable
+set.has(value)    // true/false
+set.delete(value)
+set.clear()
+set.size</code></pre>
+    <div class="callout tip">Array needs <code>arr.find()</code> to check duplicates — O(n). Set checks uniqueness in O(1). Always use Set when uniqueness is the goal.</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Need</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Key-value, string keys only</td><td>Object</td></tr>
+          <tr><td>Key-value, any key type</td><td>Map</td></tr>
+          <tr><td>Ordered unique values</td><td>Set</td></tr>
+          <tr><td>Duplicate check on large data</td><td>Set</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 40 WEAKMAP AND WEAKSET -->
+  <section class="section" id="weakmapset">
+    <div class="section-pill"><span class="dot"></span>Chapter 40</div>
+    <div class="section-header"><span class="section-num">40</span><h2>WeakMap &amp; WeakSet</h2></div>
+    <p>Regular Map and Set hold <strong>strong references</strong>. If an object is a key in a Map, it stays in memory even after all other references are gone — forever, unless you manually clean it up.</p>
+    <pre><code>// WeakMap — keys must be objects
+let weakMap = new WeakMap();
+weakMap.set(john, "data");
+john = null; // john gone from memory, entry gone from weakMap too ✅
+
+// API — intentionally limited:
+weakMap.set(key, value)
+weakMap.get(key)
+weakMap.has(key)
+weakMap.delete(key)
+// NO: size, keys(), values(), entries(), iteration</code></pre>
+    <div class="callout warn">No iteration because GC timing is non-deterministic — JS engine decides when to clean up. The count is unknowable at any moment.</div>
+    <h3>Use Cases</h3>
+    <pre><code>// Use case 1 — data tied to object lifetime:
+let cache = new WeakMap();
+function process(obj) {
+  if (!cache.has(obj)) cache.set(obj, expensiveCalc(obj));
+  return cache.get(obj);
+}
+obj = null; // cache entry auto-removed
+
+// Use case 2 — yes/no membership tracking:
+let visitedSet = new WeakSet();
+visitedSet.add(john);
+visitedSet.has(john); // true
+john = null; // auto-removed</code></pre>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Situation</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Need to iterate or check size</td><td>Map / Set</td></tr>
+          <tr><td>Extra data tied to object lifetime</td><td>WeakMap</td></tr>
+          <tr><td>Track membership without preventing GC</td><td>WeakSet</td></tr>
+          <tr><td>Caching per object</td><td>WeakMap</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 41 OBJECT.KEYS/VALUES/ENTRIES -->
+  <section class="section" id="objkeys">
+    <div class="section-pill"><span class="dot"></span>Chapter 41</div>
+    <div class="section-header"><span class="section-num">41</span><h2>Object.keys, values, entries</h2></div>
+    <pre><code>Object.keys(obj)    // array of keys
+Object.values(obj)  // array of values
+Object.entries(obj) // array of [key, value] pairs</code></pre>
+    <div class="callout tip">Unlike <code>map.keys()</code> which returns an iterable, <code>Object.keys/values/entries</code> return real arrays — you can immediately use <code>map</code>, <code>filter</code>, <code>reduce</code>.</div>
+    <h3>Why Object.keys(obj) not obj.keys()?</h3>
+    <p>Objects are the base of everything in JS — your object might already have its own <code>.keys()</code> method. <code>Object.keys(obj)</code> always works regardless of what's on the object itself.</p>
+    <h3>Symbol Keys Are Ignored</h3>
+    <p>These methods skip Symbol keys. Use <code>Reflect.ownKeys(obj)</code> for all keys or <code>Object.getOwnPropertySymbols(obj)</code> for symbols only.</p>
+    <h3>Transforming Objects — The Pattern</h3>
+    <pre><code>let prices = { banana: 1, orange: 2, meat: 4 };
+
+let doublePrices = Object.fromEntries(
+  Object.entries(prices).map(([key, val]) => [key, val * 2])
+);
+// { banana: 2, orange: 4, meat: 8 }</code></pre>
+    <div class="callout tip">This is the standard pattern whenever you need to transform object values. Objects have no <code>map</code> or <code>filter</code> — convert to array, transform, convert back.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 42 DESTRUCTURING -->
+  <section class="section" id="destructuring">
+    <div class="section-pill"><span class="dot"></span>Chapter 42</div>
+    <div class="section-header"><span class="section-num">42</span><h2>Destructuring Assignment</h2></div>
+    <h3>Array Destructuring</h3>
+    <pre><code>let [firstName, surname] = ["John", "Smith"];
+// firstName = "John", surname = "Smith"
+
+// Skip elements:
+let [first, , third] = ["a", "b", "c"]; // third = "c"
+
+// Rest operator (must be last):
+let [a, b, ...rest] = [1, 2, 3, 4, 5];
+// rest = [3,4,5]
+
+// Default values:
+let [name = "Guest", age = 0] = ["John"];
+// name="John", age=0
+
+// Swap trick:
+[a, b] = [b, a]; // no temp variable needed</code></pre>
+    <h3>Object Destructuring</h3>
+    <pre><code>let {title, width, height} = options; // matches by name, not position
+
+// Rename:
+let {width: w, height: h} = options;
+
+// Default + rename:
+let {width: w = 100, height: h = 200} = options;
+
+// Rest:
+let {title, ...rest} = options; // rest = everything except title</code></pre>
+    <div class="callout danger">Destructuring without <code>let</code>: <code>{title, width} = options</code> — JS reads <code>{}</code> as a code block! Wrap in parentheses: <code>({title, width} = options)</code></div>
+    <h3>Nested Destructuring</h3>
+    <pre><code>let {
+  size: { width, height }, // size not assigned — only its contents
+  items: [item1, item2],
+  title = "Menu"
+} = options;</code></pre>
+    <h3>Smart Function Parameters — Most Practical Use</h3>
+    <pre><code>// Instead of: showMenu("Title", undefined, undefined, ["a","b"])
+
+function showMenu({ title = "Untitled", width = 200, height = 100, items = [] } = {}) {
+  // use title, width, height, items directly
+}
+
+showMenu({ title: "My Menu", items: ["a", "b"] }); // clean
+showMenu(); // works — = {} catches empty call</code></pre>
+    <div class="callout tip">The <code>= {}</code> at the end makes the whole parameter optional — without it, calling with no args throws.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 43 DATE AND TIME -->
+  <section class="section" id="datetime">
+    <div class="section-pill"><span class="dot"></span>Chapter 43</div>
+    <div class="section-header"><span class="section-num">43</span><h2>Date and Time</h2></div>
+    <pre><code>new Date()                          // current date/time
+new Date(timestamp)                 // from milliseconds since Jan 1 1970 UTC
+new Date("2017-01-26")              // from string
+new Date(year, month, day, h, m, s) // components</code></pre>
+    <div class="callout danger">Month is <strong>0-indexed</strong>. January = 0, December = 11. This will bite you.</div>
+    <h3>Getting Components</h3>
+    <pre><code>date.getFullYear()      // 4-digit year — NEVER getYear(), it's deprecated
+date.getMonth()         // 0–11
+date.getDate()          // 1–31 (day of month)
+date.getDay()           // 0–6 (Sunday=0, Saturday=6)
+date.getHours()         // local time
+date.getTime()          // timestamp — ms since Jan 1 1970 UTC
+date.getTimezoneOffset() // difference from UTC in minutes</code></pre>
+    <h3>Autocorrection — Very Useful</h3>
+    <pre><code>new Date(2013, 0, 32)  // Jan 32 → Feb 1 (auto-corrected)
+date.setDate(0)        // day 0 → last day of previous month
+date.setDate(date.getDate() + 70) // add 70 days, handles month/year rollover</code></pre>
+    <h3>Timing</h3>
+    <pre><code>// For performance measurement — always use this:
+let start = Date.now(); // faster than new Date().getTime()
+// ... code ...
+alert(Date.now() - start + "ms");
+
+// Date.parse — returns timestamp or NaN:
+Date.parse('2012-01-26T13:51:50.417-07:00')</code></pre>
+    <div class="callout warn">Timestamps in JS are <strong>milliseconds</strong> — not seconds like Unix. For microsecond precision use <code>performance.now()</code> in browser.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 44 JSON -->
+  <section class="section" id="json">
+    <div class="section-pill"><span class="dot"></span>Chapter 44</div>
+    <div class="section-header"><span class="section-num">44</span><h2>JSON Methods</h2></div>
+    <p>Language-independent data format. All keys and strings must use <strong>double quotes</strong>. No functions, Symbols, <code>undefined</code>, comments, or circular references.</p>
+    <h3>JSON.stringify — Object to String</h3>
+    <pre><code>JSON.stringify(value, replacer, space)
+
+let json = JSON.stringify({ name: "John", age: 30 });
+// '{"name":"John","age":30}'
+
+// Silently skipped:
+JSON.stringify({ fn: () => {}, [Symbol()]: 1, x: undefined }) // '{}'
+
+// Circular references throw — no silent failure:
+obj.self = obj;
+JSON.stringify(obj); // Error: Converting circular structure to JSON</code></pre>
+    <h3>replacer — Filter or Transform</h3>
+    <pre><code>// Whitelist:
+JSON.stringify(obj, ['title', 'name'])
+
+// Full control:
+JSON.stringify(obj, (key, value) => {
+  if (key === 'password') return undefined; // skip it
+  return value;
+});
+
+// Pretty printing (logging/debugging only):
+JSON.stringify(obj, null, 2) // 2-space indented</code></pre>
+    <h3>toJSON — Custom Serialization</h3>
+    <pre><code>let room = {
+  number: 23,
+  toJSON() { return this.number; }
+};
+JSON.stringify({ room }) // '{"room":23}'
+// Date objects already have toJSON — that's why they serialize to ISO strings</code></pre>
+    <h3>JSON.parse — String to Object</h3>
+    <pre><code>let obj = JSON.parse('{"name":"John","age":30}');
+
+// Common mistakes in handwritten JSON:
+{ name: "John" }       // wrong — key needs double quotes
+{ "name": 'John' }     // wrong — value needs double quotes
+{ "date": new Date() } // wrong — no expressions allowed</code></pre>
+    <h3>reviver — Restore Types on Parse</h3>
+    <pre><code>// Dates become strings after parse — restore with reviver:
+JSON.parse(str, (key, value) => {
+  if (key === 'date') return new Date(value);
+  return value;
+});</code></pre>
+    <div class="callout tip"><strong>Core mental model:</strong> <code>stringify</code> loses functions/symbols/undefined silently. <code>parse</code> loses type info (dates become strings). Use <code>replacer</code> to control what goes out, <code>reviver</code> to restore types coming in.</div>
+  </section>
+
+  <hr class="divider">
+
   <!-- QUIZ -->
   <section class="section" id="quiz">
     <div class="section-pill"><span class="dot"></span>Practice</div>
@@ -1421,7 +1956,77 @@ alert(obj + 2);  // "22" → stage 1: obj → "2", stage 2: "2" + 2 → concat!<
       <div class="quiz-feedback" id="q10-feedback"></div>
     </div>
 
-  </section>
+    <!-- Q11 -->
+    <div class="quiz-card" id="q11">
+      <div class="quiz-q">What does <code>[1, 2, 15].sort()</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q11', this, false)">[1, 2, 15]</button>
+        <button class="quiz-opt" onclick="answer('q11', this, true)">[1, 15, 2]</button>
+        <button class="quiz-opt" onclick="answer('q11', this, false)">[15, 2, 1]</button>
+        <button class="quiz-opt" onclick="answer('q11', this, false)">TypeError</button>
+      </div>
+      <div class="quiz-feedback" id="q11-feedback"></div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="quiz-card" id="q12">
+      <div class="quiz-q">What does <code>0.1 + 0.2 === 0.3</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q12', this, false)">true</button>
+        <button class="quiz-opt" onclick="answer('q12', this, true)">false</button>
+        <button class="quiz-opt" onclick="answer('q12', this, false)">NaN</button>
+        <button class="quiz-opt" onclick="answer('q12', this, false)">undefined</button>
+      </div>
+      <div class="quiz-feedback" id="q12-feedback"></div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="quiz-card" id="q13">
+      <div class="quiz-q">Which month number is January in <code>new Date(2024, ?, 1)</code>?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q13', this, false)">1</button>
+        <button class="quiz-opt" onclick="answer('q13', this, true)">0</button>
+        <button class="quiz-opt" onclick="answer('q13', this, false)">01</button>
+        <button class="quiz-opt" onclick="answer('q13', this, false)">Depends on locale</button>
+      </div>
+      <div class="quiz-feedback" id="q13-feedback"></div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="quiz-card" id="q14">
+      <div class="quiz-q">What does <code>JSON.stringify({ fn: () => {}, x: undefined })</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q14', this, false)">Throws an error</button>
+        <button class="quiz-opt" onclick="answer('q14', this, false)">'{"fn":null,"x":null}'</button>
+        <button class="quiz-opt" onclick="answer('q14', this, true)">'{}'</button>
+        <button class="quiz-opt" onclick="answer('q14', this, false)">'{"fn":"function","x":"undefined"}'</button>
+      </div>
+      <div class="quiz-feedback" id="q14-feedback"></div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="quiz-card" id="q15">
+      <div class="quiz-q">What is wrong with <code>if (str.indexOf("Widget")) { ... }</code>?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q15', this, false)">indexOf doesn't exist on strings</button>
+        <button class="quiz-opt" onclick="answer('q15', this, true)">If found at index 0, it returns 0 which is falsy — the block won't run</button>
+        <button class="quiz-opt" onclick="answer('q15', this, false)">Nothing is wrong</button>
+        <button class="quiz-opt" onclick="answer('q15', this, false)">It should be indexOf() not indexOf</button>
+      </div>
+      <div class="quiz-feedback" id="q15-feedback"></div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="quiz-card" id="q16">
+      <div class="quiz-q">You set <code>let map = new Map(); map[key] = value</code>. What's wrong?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q16', this, false)">Nothing — both syntaxes work the same</button>
+        <button class="quiz-opt" onclick="answer('q16', this, true)">Using bracket notation treats it like a plain object — loses all Map benefits</button>
+        <button class="quiz-opt" onclick="answer('q16', this, false)">Throws a TypeError</button>
+        <button class="quiz-opt" onclick="answer('q16', this, false)">The value won't be stored</button>
+      </div>
+      <div class="quiz-feedback" id="q16-feedback"></div>
+    </div>
 
 </main>
 
@@ -1466,6 +2071,12 @@ alert(obj + 2);  // "22" → stage 1: obj → "2", stage 2: "2" + 2 → concat!<
     q8:  { correct: "Correct! Arrow functions have no own this — they borrow it from the enclosing lexical scope.", wrong: "Wrong. Arrow functions don't have their own this. They inherit it from wherever they were defined (lexical scope)." },
     q9:  { correct: "Correct! Symbols are always unique. Even same description = different symbol. Use Symbol.for() for shared ones.", wrong: "Wrong. Symbols are always unique regardless of description. Symbol('id') !== Symbol('id'). Use Symbol.for('id') for shared symbols." },
     q10: { correct: "Correct! structuredClone handles circular refs and nested objects — but it cannot clone function properties.", wrong: "Wrong. structuredClone handles circular references and nested objects fine. It fails specifically on function properties." },
+    q11: { correct: "Correct! Default sort converts elements to strings — '15' comes before '2' alphabetically.", wrong: "Wrong. Default sort converts to strings: '15' < '2' alphabetically. Always pass a comparator for numbers: (a, b) => a - b." },
+    q12: { correct: "Correct! 0.1 and 0.2 are infinite repeating fractions in binary. The result is 0.30000000000000004.", wrong: "Wrong. 0.1 + 0.2 === 0.3 is false. The actual result is 0.30000000000000004 due to IEEE-754 floating point." },
+    q13: { correct: "Correct! Months are 0-indexed in JS. January = 0, February = 1, ..., December = 11.", wrong: "Wrong. Months are 0-indexed. January = 0, not 1. This is a classic JS gotcha." },
+    q14: { correct: "Correct! JSON.stringify silently skips functions, Symbol keys, and undefined values.", wrong: "Wrong. Functions and undefined are silently skipped by JSON.stringify — the result is '{}'." },
+    q15: { correct: "Correct! indexOf returns 0 when found at the start. 0 is falsy in JS, so the if-block won't run. Always check: !== -1.", wrong: "Wrong. indexOf returns 0 when found at the beginning — and 0 is falsy! Always use: str.indexOf('Widget') !== -1." },
+    q16: { correct: "Correct! Bracket notation on a Map bypasses Map internals — use .set() and .get() exclusively.", wrong: "Wrong. Using map[key] treats the Map as a plain object — you lose key identity, .size won't count it, and .has() won't find it." },
   };
 
   function answer(qId, btn, isCorrect) {
