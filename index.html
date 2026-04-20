@@ -17,7 +17,6 @@
     <div class="sidebar-logo">JS Notes</div>
     <div class="sidebar-sub">// complete reference</div>
   </div>
-  </div>
   <div class="nav-section-label">Fundamentals</div>
   <a class="nav-item" href="#intro"><span class="num">01</span> Introduction</a>
   <a class="nav-item" href="#editors"><span class="num">02</span> Code Editors</a>
@@ -48,11 +47,20 @@
   <a class="nav-item" href="#comments"><span class="num">23</span> Comments</a>
   <a class="nav-item" href="#testing"><span class="num">24</span> Testing (Mocha)</a>
   <a class="nav-item" href="#polyfills"><span class="num">25</span> Polyfills</a>
+
+  <div class="nav-section-label">Objects & Advanced</div>
   <a class="nav-item" href="#objects"><span class="num">26</span> Objects</a>
+  <a class="nav-item" href="#objref"><span class="num">27</span> References & Copying</a>
+  <a class="nav-item" href="#gc"><span class="num">28</span> Garbage Collection</a>
+  <a class="nav-item" href="#methods"><span class="num">29</span> Methods & this</a>
+  <a class="nav-item" href="#constructors"><span class="num">30</span> Constructors & new</a>
+  <a class="nav-item" href="#symbols"><span class="num">31</span> Symbol Type</a>
+  <a class="nav-item" href="#toprimitive"><span class="num">32</span> Object → Primitive</a>
 
   <div class="nav-section-label">Practice</div>
   <a class="nav-item" href="#quiz"><span class="num">★</span> Quick Quiz</a>
 </nav>
+
 <!-- MAIN -->
 <main class="main">
 
@@ -62,7 +70,7 @@
     <h1>JS <span>Fundamentals</span><br>Reference</h1><h2>-Shivansh Singh</h2>
     <p class="desc">From introduction to arrow functions — everything you need, nothing you don't.</p>
     <div class="stats-row">
-      <div class="stat"><div class="val">24+</div><div class="label">Chapters</div></div>
+      <div class="stat"><div class="val">32</div><div class="label">Chapters</div></div>
       <div class="stat"><div class="val">8</div><div class="label">Data Types</div></div>
       <div class="stat"><div class="val">∞</div><div class="label">Reps needed</div></div>
     </div>
@@ -71,13 +79,8 @@
   <!-- 01 INTRO -->
   <section class="section" id="intro">
     <div class="section-pill"><span class="dot"></span>Chapter 01</div>
-    <div class="section-header">
-      <span class="section-num">01</span>
-      <h2>Introduction to JavaScript</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">01</span><h2>Introduction to JavaScript</h2></div>
     <p>Created to <strong>make web pages alive</strong>. Scripts run as plain text — no compilation needed. Originally "LiveScript", renamed to ride Java's popularity. Fully independent today; its spec is called <strong>ECMAScript</strong>.</p>
-
     <h3>JS Engines by Browser</h3>
     <div class="table-wrap">
       <table>
@@ -90,10 +93,8 @@
         </tbody>
       </table>
     </div>
-
     <h3>Engine Pipeline</h3>
     <p><strong>Parse</strong> → <strong>Compile to machine code</strong> → <strong>Run</strong> (with optimisations at each step)</p>
-
     <h3>What JS Can Do (Browser)</h3>
     <ul>
       <li>Add/change HTML content and CSS styles</li>
@@ -101,10 +102,8 @@
       <li>Make network requests (AJAX, COMET)</li>
       <li>Store data client-side (localStorage)</li>
     </ul>
-
     <h3>What JS Cannot Do (Browser)</h3>
     <div class="callout warn">Read/write files, access OS, use camera/mic without permission, access other-domain tabs (Same Origin Policy)</div>
-
     <h3>Languages That Transpile to JS</h3>
     <div class="kv-grid">
       <div class="kv-item"><div class="kv-key">TypeScript</div><div class="kv-val">Strict typing — by Microsoft</div></div>
@@ -119,12 +118,8 @@
   <!-- 02 CODE EDITORS -->
   <section class="section" id="editors">
     <div class="section-pill"><span class="dot"></span>Chapter 02</div>
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <h2>Code Editors</h2>
-    </div>
+    <div class="section-header"><span class="section-num">02</span><h2>Code Editors</h2></div>
     <p>Two main types: <strong>IDEs</strong> and <strong>Lightweight Editors</strong> — many developers use one of each.</p>
-
     <h3>IDEs — Integrated Development Environments</h3>
     <p>Powerful, project-level editors. Features: multi-file navigation, project-wide autocompletion, git integration, testing environments.</p>
     <div class="table-wrap">
@@ -138,15 +133,13 @@
       </table>
     </div>
     <div class="callout tip">Most paid IDEs offer trial periods.</div>
-
     <h3>Lightweight Editors</h3>
-    <p>Fast, simple — ideal for quickly opening/editing single files. Can be extended with plugins for syntax analysis and autocompletion, blurring the line with IDEs.</p>
+    <p>Fast, simple — ideal for quickly opening/editing single files. Can be extended with plugins for syntax analysis and autocompletion.</p>
     <div class="kv-grid">
       <div class="kv-item"><div class="kv-key">Sublime Text</div><div class="kv-val">Cross-platform, shareware</div></div>
       <div class="kv-item"><div class="kv-key">Notepad++</div><div class="kv-val">Windows, free</div></div>
       <div class="kv-item"><div class="kv-key">Vim / Emacs</div><div class="kv-val">Powerful if you know how to use them</div></div>
     </div>
-
     <h3>Author's Recommendation</h3>
     <ul>
       <li>Frontend-heavy → <strong>Visual Studio Code</strong></li>
@@ -159,12 +152,8 @@
   <!-- 03 DEVELOPER CONSOLE -->
   <section class="section" id="console">
     <div class="section-pill"><span class="dot"></span>Chapter 03</div>
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2>Developer Console</h2>
-    </div>
+    <div class="section-header"><span class="section-num">03</span><h2>Developer Console</h2></div>
     <p>Browser developer tools let you see errors, run commands, and inspect scripts — hidden from regular users by default.</p>
-
     <h3>Opening Developer Tools</h3>
     <div class="table-wrap">
       <table>
@@ -178,7 +167,6 @@
       </table>
     </div>
     <div class="callout warn">Safari extra step: Enable via Settings → Advanced → check "Develop menu" first.</div>
-
     <h3>Chrome Console</h3>
     <ul>
       <li>Opens on the <strong>Console</strong> tab by default</li>
@@ -186,23 +174,17 @@
       <li>Clickable link on the right shows the exact file & line number of the error</li>
       <li>Blue <code>&gt;</code> = command line to type and run JavaScript (press Enter to run)</li>
     </ul>
-
     <h3>Multi-line Input</h3>
     <p>Press <strong>Shift + Enter</strong> to add a new line without executing — useful for entering longer code blocks.</p>
-
     <div class="callout tip">Chrome and Firefox have the best developer tools. Most developers pick one as their favourite and switch only for browser-specific issues.</div>
   </section>
 
   <hr class="divider">
 
-  <!-- 04 SCRIPTS & EXTERNAL SCRIPTS -->
+  <!-- 04 SCRIPTS -->
   <section class="section" id="scripts">
     <div class="section-pill"><span class="dot"></span>Chapter 04</div>
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <h2>Modern Markup &amp; External Scripts</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">04</span><h2>Modern Markup &amp; External Scripts</h2></div>
     <h3>Outdated &lt;script&gt; Attributes</h3>
     <div class="table-wrap">
       <table>
@@ -214,7 +196,6 @@
       </table>
     </div>
     <div class="callout warn">Old comment trick — code wrapped in <code>&lt;!-- ... //--&gt;</code> inside &lt;script&gt; was used to hide JS from ancient browsers. Seeing this = very old code.</div>
-
     <h3>External Scripts</h3>
     <pre><code>&lt;script src="/path/to/script.js"&gt;&lt;/script&gt;   // absolute path
 &lt;script src="script.js"&gt;&lt;/script&gt;             // relative path
@@ -223,13 +204,11 @@
 // Multiple scripts = multiple tags:
 &lt;script src="/js/script1.js"&gt;&lt;/script&gt;
 &lt;script src="/js/script2.js"&gt;&lt;/script&gt;</code></pre>
-
     <h3>Why External Files?</h3>
     <ul>
       <li>Browser downloads once and <strong>caches</strong> it</li>
       <li>Other pages reuse the cache → less traffic, faster load</li>
     </ul>
-
     <h3>src + Inline Code Don't Mix</h3>
     <p>If <code>src</code> is set, any inline code inside the tag is <strong>ignored</strong>.</p>
     <pre><code>// WRONG — alert(1) is ignored
@@ -247,19 +226,12 @@
   <!-- 05 CODE STRUCTURE -->
   <section class="section" id="structure">
     <div class="section-pill"><span class="dot"></span>Chapter 05</div>
-    <div class="section-header">
-      <span class="section-num">05</span>
-      <h2>Code Structure</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">05</span><h2>Code Structure</h2></div>
     <p>Instructions are called <strong>statements</strong>, separated by semicolons. JS has automatic semicolon insertion (ASI) — but it's unreliable.</p>
-
     <div class="callout danger">Never rely on ASI. Always write semicolons manually.</div>
-
     <pre><code>// dangerous — JS merges these into one broken statement
 alert("Hello")
 [1, 2].forEach(alert);  // reads as: alert("Hello")[1,2].forEach(...)</code></pre>
-
     <h3>Comments</h3>
     <pre><code>// single line comment
 
@@ -267,7 +239,6 @@ alert("Hello")
    comment */
 
 /* alert('disabled'); */  // temporarily disable code</code></pre>
-
     <div class="callout warn">Nested comments <code>/* /* */ */</code> throw an error.</div>
   </section>
 
@@ -276,18 +247,11 @@ alert("Hello")
   <!-- 06 USE STRICT -->
   <section class="section" id="strict">
     <div class="section-pill"><span class="dot"></span>Chapter 06</div>
-    <div class="section-header">
-      <span class="section-num">06</span>
-      <h2>"use strict"</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">06</span><h2>"use strict"</h2></div>
     <p>ES5 (2009) introduced fixes that are <strong>off by default</strong> to avoid breaking legacy code. <code>"use strict"</code> opts into these fixes.</p>
-
     <pre><code>"use strict";
 // entire script runs in strict mode</code></pre>
-
     <div class="callout warn">Must be at the very top — placing it anywhere else is ignored. Cannot be undone.</div>
-
     <div class="callout tip">Classes and modules enable strict mode automatically — once you use them, "use strict" is redundant.</div>
   </section>
 
@@ -296,11 +260,7 @@ alert("Hello")
   <!-- 07 VARIABLES -->
   <section class="section" id="variables">
     <div class="section-pill"><span class="dot"></span>Chapter 07</div>
-    <div class="section-header">
-      <span class="section-num">07</span>
-      <h2>Variables</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">07</span><h2>Variables</h2></div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Keyword</th><th>Reassignable</th><th>Scope</th><th>Use</th></tr></thead>
@@ -311,7 +271,6 @@ alert("Hello")
         </tbody>
       </table>
     </div>
-
     <h3>Naming Rules</h3>
     <ul>
       <li>Letters, digits, <code>$</code>, <code>_</code> only — cannot start with a digit</li>
@@ -319,7 +278,6 @@ alert("Hello")
       <li>Use <code>camelCase</code> for multi-word names</li>
       <li>No reserved words: <code>let</code>, <code>class</code>, <code>return</code></li>
     </ul>
-
     <div class="callout danger">Without "use strict", you can accidentally create globals: <code>num = 5</code> — extremely dangerous.</div>
   </section>
 
@@ -328,13 +286,8 @@ alert("Hello")
   <!-- 08 DATA TYPES -->
   <section class="section" id="datatypes">
     <div class="section-pill"><span class="dot"></span>Chapter 08</div>
-    <div class="section-header">
-      <span class="section-num">08</span>
-      <h2>Data Types</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">08</span><h2>Data Types</h2></div>
     <p>JavaScript is <strong>dynamically typed</strong> — variables aren't locked to a type.</p>
-
     <div class="table-wrap">
       <table>
         <thead><tr><th>Type</th><th>Example</th><th>Notes</th></tr></thead>
@@ -350,31 +303,26 @@ alert("Hello")
         </tbody>
       </table>
     </div>
-
-<h3>typeof Gotchas</h3>
-<pre><code>typeof null         // "object"   ⚠ bug from 1995 — null is NOT an object
+    <h3>typeof Gotchas</h3>
+    <pre><code>typeof null         // "object"   ⚠ bug from 1995 — null is NOT an object
 typeof function(){} // "function" — not "object", even though functions ARE objects
 typeof undefined    // "undefined"
 typeof alert        // "function"
 // null and function(){} are the only 2 typeof exceptions</code></pre>
-<div class="callout danger"><strong>Interview trap:</strong> <code>typeof null === "object"</code> is a bug from 1995, never fixed. null is NOT an object.</div>
-</section>
-<hr class="divider">
+    <div class="callout danger"><strong>Interview trap:</strong> <code>typeof null === "object"</code> is a bug from 1995, never fixed. null is NOT an object.</div>
+  </section>
+
+  <hr class="divider">
 
   <!-- 09 INTERACTION -->
   <section class="section" id="interaction">
     <div class="section-pill"><span class="dot"></span>Chapter 09</div>
-    <div class="section-header">
-      <span class="section-num">09</span>
-      <h2>Interaction: alert, prompt, confirm</h2>
-    </div>
+    <div class="section-header"><span class="section-num">09</span><h2>Interaction: alert, prompt, confirm</h2></div>
     <p>Three browser-specific <strong>modal functions</strong> to interact with the visitor. All pause script execution and block page interaction.</p>
-
     <h3>alert — show a message</h3>
     <pre><code>alert("Hello");
 // Returns: undefined (informational only)
 // Pauses until OK is pressed</code></pre>
-
     <h3>prompt — ask for input</h3>
     <pre><code>result = prompt(title, [default]);
 
@@ -383,12 +331,10 @@ alert(`You are ${age} years old!`);
 // OK  → returns the entered string
 // Cancel / Esc → returns null</code></pre>
     <div class="callout warn">IE may insert "undefined" if no default is given — pass <code>''</code> as the second argument for compatibility.</div>
-
     <h3>confirm — ask yes/no</h3>
     <pre><code>let isBoss = confirm("Are you the boss?");
 // OK     → true
 // Cancel → false</code></pre>
-
     <h3>Return Value Reference</h3>
     <div class="table-wrap">
       <table>
@@ -408,11 +354,7 @@ alert(`You are ${age} years old!`);
   <!-- 10 TYPE CONVERSION -->
   <section class="section" id="conversion">
     <div class="section-pill"><span class="dot"></span>Chapter 10</div>
-    <div class="section-header">
-      <span class="section-num">10</span>
-      <h2>Type Conversions</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">10</span><h2>Type Conversions</h2></div>
     <h3>To Number</h3>
     <div class="table-wrap">
       <table>
@@ -428,9 +370,7 @@ alert(`You are ${age} years old!`);
         </tbody>
       </table>
     </div>
-
     <div class="callout warn"><code>undefined → NaN</code> (not 0!). <code>null → 0</code> (not NaN!). These are opposite and commonly confused.</div>
-
     <h3>To Boolean (Falsy Values)</h3>
     <div class="tag-row">
       <span class="tag falsy">0</span>
@@ -449,21 +389,15 @@ alert(`You are ${age} years old!`);
   <!-- 11 OPERATORS -->
   <section class="section" id="operators">
     <div class="section-pill"><span class="dot"></span>Chapter 11</div>
-    <div class="section-header">
-      <span class="section-num">11</span>
-      <h2>Operators & Math</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">11</span><h2>Operators & Math</h2></div>
     <h3>+ Operator Dual Role</h3>
     <pre><code>2 + 2 + '1'   // "41" — numbers add first, then concat
 '1' + 2 + 2   // "122" — string first, everything concatenates
 6 - '2'       // 4  — non-+ operators always convert to number</code></pre>
-
     <h3>Unary + for Conversion</h3>
     <pre><code>+true   // 1
 +""     // 0
 +"3"    // 3  — same as Number("3")</code></pre>
-
     <h3>Operator Precedence (Key)</h3>
     <div class="table-wrap">
       <table>
@@ -477,7 +411,6 @@ alert(`You are ${age} years old!`);
         </tbody>
       </table>
     </div>
-
     <h3>Increment / Decrement</h3>
     <pre><code>let a = ++counter  // prefix: increment FIRST, return new value
 let a = counter++  // postfix: return old value FIRST, then increment</code></pre>
@@ -488,19 +421,13 @@ let a = counter++  // postfix: return old value FIRST, then increment</code></pr
   <!-- 12 COMPARISON -->
   <section class="section" id="comparison">
     <div class="section-pill"><span class="dot"></span>Chapter 12</div>
-    <div class="section-header">
-      <span class="section-num">12</span>
-      <h2>Comparisons</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">12</span><h2>Comparisons</h2></div>
     <h3>Strict vs Loose Equality</h3>
     <pre><code>0 == false    // true  — type coercion
 0 === false   // false — strict, no conversion
 "" == false   // true  — loose
 "" === false  // false — strict</code></pre>
-
     <div class="callout tip">Always use <code>===</code>. Never use <code>==</code> unless you specifically need type coercion.</div>
-
     <h3>null & undefined Traps</h3>
     <pre><code>null == undefined   // true  (special pair)
 null === undefined  // false (different types)
@@ -508,7 +435,6 @@ null === undefined  // false (different types)
 null >= 0    // true  — null converts to 0
 null == 0    // false — == uses different rules, null only == undefined
 undefined    // always false in comparisons (converts to NaN)</code></pre>
-
     <div class="callout danger">Never use <code>&gt; &lt; &gt;= &lt;=</code> with variables that could be null/undefined. Check first.</div>
   </section>
 
@@ -517,13 +443,8 @@ undefined    // always false in comparisons (converts to NaN)</code></pre>
   <!-- 13 CONDITIONALS -->
   <section class="section" id="conditionals">
     <div class="section-pill"><span class="dot"></span>Chapter 13</div>
-    <div class="section-header">
-      <span class="section-num">13</span>
-      <h2>Conditional Branching: if and ?</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">13</span><h2>Conditional Branching: if and ?</h2></div>
     <p>Runs code only if the condition is true. Condition is converted to boolean automatically.</p>
-
     <h3>if / else if / else</h3>
     <pre><code>if (year < 2015) {
   alert("Too early");
@@ -533,7 +454,6 @@ undefined    // always false in comparisons (converts to NaN)</code></pre>
   alert("Exactly!");
 }</code></pre>
     <div class="callout tip">Always use curly braces <code>{}</code> even for single lines — better readability.</div>
-
     <h3>Falsy vs Truthy in conditions</h3>
     <div class="tag-row">
       <span class="tag falsy">0</span>
@@ -543,9 +463,7 @@ undefined    // always false in comparisons (converts to NaN)</code></pre>
       <span class="tag falsy">NaN</span>
       <span class="tag truthy">everything else → truthy</span>
     </div>
-
     <h3>Ternary Operator ?</h3>
-    <p>Shorthand for simple if/else <em>assignments</em>.</p>
     <pre><code>let result = condition ? value1 : value2;
 
 let accessAllowed = (age > 18) ? true : false;
@@ -557,7 +475,6 @@ let message = (age < 3) ? 'Hi, baby!' :
   (age < 18) ? 'Hello!' :
   (age < 100) ? 'Greetings!' :
   'What an unusual age!';</code></pre>
-
     <h3>? vs if — When to Use What</h3>
     <div class="table-wrap">
       <table>
@@ -576,13 +493,8 @@ let message = (age < 3) ? 'Hi, baby!' :
   <!-- 14 LOGICAL -->
   <section class="section" id="logical">
     <div class="section-pill"><span class="dot"></span>Chapter 14</div>
-    <div class="section-header">
-      <span class="section-num">14</span>
-      <h2>Logical Operators</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">14</span><h2>Logical Operators</h2></div>
     <p><code>||</code> <code>&&</code> <code>!</code> work on any type, return <em>original values</em>, not just true/false.</p>
-
     <div class="kv-grid">
       <div class="kv-item">
         <div class="kv-key">|| OR — first truthy</div>
@@ -593,7 +505,6 @@ let message = (age < 3) ? 'Hi, baby!' :
         <div class="kv-val">Stops at first falsy. Returns that original value. If all truthy → returns last.</div>
       </div>
     </div>
-
     <pre><code>1 || 0          // 1  (first truthy)
 null || 1       // 1  (skipped null)
 null || 0 || 1  // 1  (first truthy found)
@@ -602,13 +513,11 @@ undefined || null || 0  // 0  (all falsy, returns last)
 1 && 0          // 0  (first falsy)
 1 && 2 && 3     // 3  (all truthy, returns last)
 null && 5       // null (stops immediately)</code></pre>
-
     <h3>!! Double NOT Trick</h3>
     <pre><code>!!"hello"  // true  — converts any value to pure boolean
 !!null     // false
 !!0        // false
 // same as Boolean(value)</code></pre>
-
     <h3>Precedence</h3>
     <p><strong>!</strong> (highest) → <strong>&&</strong> → <strong>||</strong> (lowest)</p>
   </section>
@@ -618,13 +527,8 @@ null && 5       // null (stops immediately)</code></pre>
   <!-- 15 NULLISH -->
   <section class="section" id="nullish">
     <div class="section-pill"><span class="dot"></span>Chapter 15</div>
-    <div class="section-header">
-      <span class="section-num">15</span>
-      <h2>Nullish Coalescing ??</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">15</span><h2>Nullish Coalescing ??</h2></div>
     <p>Returns the first <strong>defined</strong> value — only <code>null</code> and <code>undefined</code> trigger fallback.</p>
-
     <h3>?? vs || — The Critical Difference</h3>
     <div class="table-wrap">
       <table>
@@ -635,7 +539,6 @@ null && 5       // null (stops immediately)</code></pre>
         </tbody>
       </table>
     </div>
-
     <pre><code>let height = 0;
 height || 100   // 100 — WRONG, loses the 0
 height ?? 100   // 0   — CORRECT, respects user's value
@@ -644,7 +547,6 @@ height ?? 100   // 0   — CORRECT, respects user's value
 let volume = 0;
 volume || 50    // 50  — bug, overwrites setting
 volume ?? 50    // 0   — correct</code></pre>
-
     <div class="callout warn">Mixing <code>??</code> with <code>&&</code> or <code>||</code> without parentheses throws a SyntaxError.</div>
   </section>
 
@@ -653,11 +555,7 @@ volume ?? 50    // 0   — correct</code></pre>
   <!-- 16 LOOPS -->
   <section class="section" id="loops">
     <div class="section-pill"><span class="dot"></span>Chapter 16</div>
-    <div class="section-header">
-      <span class="section-num">16</span>
-      <h2>Loops</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">16</span><h2>Loops</h2></div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Loop</th><th>Checks condition</th><th>Use when</th></tr></thead>
@@ -668,18 +566,18 @@ volume ?? 50    // 0   — correct</code></pre>
         </tbody>
       </table>
     </div>
-
     <pre><code>for (begin; condition; step) { body }
 // begin → (condition → body → step) → repeat
 
 for (;;) { /* infinite loop */ }</code></pre>
-
     <h3>break vs continue</h3>
     <ul>
       <li><strong>break</strong> — exits loop immediately</li>
       <li><strong>continue</strong> — skips rest of current iteration, goes to next</li>
       <li>Neither can be used with ternary <code>?</code></li>
     </ul>
+    <h3>Labels</h3>
+    <p>Used to <code>break</code> or <code>continue</code> out of nested loops. <code>labelName: for (...) { ... }</code> — <code>break labelName</code> exits the labeled outer loop entirely.</p>
   </section>
 
   <hr class="divider">
@@ -687,12 +585,8 @@ for (;;) { /* infinite loop */ }</code></pre>
   <!-- 17 SWITCH -->
   <section class="section" id="switch">
     <div class="section-pill"><span class="dot"></span>Chapter 17</div>
-    <div class="section-header">
-      <span class="section-num">17</span>
-      <h2>The switch Statement</h2>
-    </div>
+    <div class="section-header"><span class="section-num">17</span><h2>The switch Statement</h2></div>
     <p>Replaces multiple <code>if</code> checks with a more descriptive way to compare a value against multiple variants.</p>
-
     <h3>Syntax</h3>
     <pre><code>switch(x) {
   case 'value1':   // if (x === 'value1')
@@ -710,7 +604,6 @@ for (;;) { /* infinite loop */ }</code></pre>
       <li>Execution starts from matched <code>case</code> and runs until nearest <code>break</code> or end of switch</li>
       <li>If no case matches, <code>default</code> block runs (if it exists)</li>
     </ul>
-
     <h3>Fall-through (no break)</h3>
     <p>Without <code>break</code>, execution continues into the next case automatically — no check is done.</p>
     <pre><code>let a = 4;
@@ -720,22 +613,11 @@ switch (a) {
   case 5: alert('Too big');    // also runs!
   default: alert("Unknown");   // also runs!
 }</code></pre>
-
     <h3>Grouping Cases</h3>
-    <p>Stack cases without break to share the same code block — deliberate use of fall-through:</p>
     <pre><code>case 3:
 case 5:
   alert('Wrong!');
   break;</code></pre>
-
-    <h3>Expressions as Arguments</h3>
-    <p>Both <code>switch(x)</code> and <code>case</code> values can be arbitrary expressions:</p>
-    <pre><code>switch (+a) {
-  case b + 1:
-    alert("this runs!");
-    break;
-}</code></pre>
-
     <div class="callout danger"><strong>Type matters:</strong> <code>prompt()</code> always returns a string. <code>case 3</code> (number) will never match <code>"3"</code> (string) — mismatched types create silent dead code.</div>
   </section>
 
@@ -744,18 +626,13 @@ case 5:
   <!-- 18 FUNCTIONS -->
   <section class="section" id="functions">
     <div class="section-pill"><span class="dot"></span>Chapter 18</div>
-    <div class="section-header">
-      <span class="section-num">18</span>
-      <h2>Functions</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">18</span><h2>Functions</h2></div>
     <h3>Parameters vs Arguments</h3>
     <ul>
       <li><strong>Parameter</strong> — variable in the declaration (declaration-time)</li>
       <li><strong>Argument</strong> — value passed when called (call-time)</li>
       <li>Arguments are <strong>copied</strong> — modifying a param doesn't affect outside variable</li>
     </ul>
-
     <pre><code>function f(text = "no text given") { ... }
 // Default value: evaluated every time function is called without that arg
 
@@ -767,7 +644,6 @@ return        // JS inserts ; here → returns undefined!
 return (
   a + b
 );</code></pre>
-
     <h3>Naming Conventions</h3>
     <div class="tag-row">
       <span class="tag neutral">get… → returns value</span>
@@ -783,11 +659,7 @@ return (
   <!-- 19 FN EXPRESSIONS -->
   <section class="section" id="funcexpr">
     <div class="section-pill"><span class="dot"></span>Chapter 19</div>
-    <div class="section-header">
-      <span class="section-num">19</span>
-      <h2>Function Expressions vs Declarations</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">19</span><h2>Function Expressions vs Declarations</h2></div>
     <div class="table-wrap">
       <table>
         <thead><tr><th></th><th>Declaration</th><th>Expression</th></tr></thead>
@@ -799,7 +671,6 @@ return (
         </tbody>
       </table>
     </div>
-
     <div class="callout tip">Default to declarations. Use expressions when you need conditional assignment or anonymous callbacks.</div>
   </section>
 
@@ -808,11 +679,7 @@ return (
   <!-- 20 ARROW FUNCTIONS -->
   <section class="section" id="arrow">
     <div class="section-pill"><span class="dot"></span>Chapter 20</div>
-    <div class="section-header">
-      <span class="section-num">20</span>
-      <h2>Arrow Functions</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">20</span><h2>Arrow Functions</h2></div>
     <pre><code>// No braces → implicit return
 const double = n => n * 2;
 
@@ -821,7 +688,6 @@ const add = (a, b) => {
   let result = a + b;
   return result;
 };</code></pre>
-
     <h3>Parentheses Rules</h3>
     <div class="table-wrap">
       <table>
@@ -833,7 +699,6 @@ const add = (a, b) => {
         </tbody>
       </table>
     </div>
-
     <div class="callout warn">Arrow functions don't have their own <code>this</code> — they inherit from surrounding scope. Crucial difference from regular functions.</div>
   </section>
 
@@ -842,32 +707,19 @@ const add = (a, b) => {
   <!-- 21 DEBUGGING -->
   <section class="section" id="debugging">
     <div class="section-pill"><span class="dot"></span>Chapter 21</div>
-    <div class="section-header">
-      <span class="section-num">21</span>
-      <h2>Debugging in the Browser</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">21</span><h2>Debugging in the Browser</h2></div>
     <h3>3 Ways to Pause a Script</h3>
     <ul>
       <li><strong>Breakpoint</strong> — click a line number in the Sources panel</li>
       <li><strong><code>debugger;</code></strong> — write it directly in code; only works when DevTools is open</li>
       <li><strong>Error</strong> — enable the "pause on error" button in DevTools</li>
     </ul>
-
     <h3>Sources Panel — 3 Panes</h3>
     <ul>
       <li><strong>File Navigator</strong> — all files attached to the page</li>
       <li><strong>Code Editor</strong> — source code</li>
       <li><strong>JS Debugging pane</strong> — the actual debugger controls</li>
     </ul>
-
-    <h3>Breakpoints</h3>
-    <ul>
-      <li>Click a line number to set. Click again to remove.</li>
-      <li>Right-click → <strong>conditional breakpoint</strong> — only triggers when expression is truthy</li>
-      <li>All breakpoints listed in right panel — can disable/remove from there</li>
-    </ul>
-
     <h3>Execution Controls</h3>
     <div class="table-wrap">
       <table>
@@ -882,14 +734,12 @@ const add = (a, b) => {
       </table>
     </div>
     <div class="callout tip">Right-click a line → "Continue to here" — jump forward without setting a breakpoint.</div>
-
     <h3>Inspect Panel (when paused)</h3>
     <ul>
       <li><strong>Watch</strong> — track any expression, auto-updates as you step</li>
       <li><strong>Call Stack</strong> — shows nested call chain; click any frame to jump to it</li>
       <li><strong>Scope</strong> — local and global variables at current point</li>
     </ul>
-
     <h3>console.log</h3>
     <pre><code>console.log("value:", i);  // open Console tab or press Esc</code></pre>
     <div class="callout tip">Use <code>console.log</code> for quick checks, breakpoints for complex bugs where you need to inspect state step by step.</div>
@@ -900,11 +750,7 @@ const add = (a, b) => {
   <!-- 22 CODING STYLE -->
   <section class="section" id="codestyle">
     <div class="section-pill"><span class="dot"></span>Chapter 22</div>
-    <div class="section-header">
-      <span class="section-num">22</span>
-      <h2>Coding Style</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">22</span><h2>Coding Style</h2></div>
     <h3>Curly Braces — Egyptian Style</h3>
     <p>Opening brace on same line, space before bracket.</p>
     <pre><code>if (condition) {   // ✅ correct
@@ -914,7 +760,6 @@ const add = (a, b) => {
 if (condition)     // ❌ never split without braces
   doSomething();</code></pre>
     <p>One-liner acceptable only if very short: <code>if (n &lt; 0) return null;</code></p>
-
     <h3>Line Length</h3>
     <p>Max 80 or 120 chars (team decides). Split long conditions:</p>
     <pre><code>if (
@@ -923,13 +768,11 @@ if (condition)     // ❌ never split without braces
 ) {
   letTheSorceryBegin();
 }</code></pre>
-
     <h3>Indents</h3>
     <ul>
       <li><strong>Horizontal</strong> — 2 or 4 spaces (spaces preferred over tabs)</li>
       <li><strong>Vertical</strong> — empty lines between logical blocks. No more than 9 lines without a break.</li>
     </ul>
-
     <h3>Nesting — Keep It Shallow</h3>
     <p>Use early returns and <code>continue</code> to avoid extra levels:</p>
     <pre><code>// ❌ nested
@@ -938,13 +781,6 @@ if (cond) { doSomething(); }
 // ✅ flat
 if (!cond) continue;
 doSomething();</code></pre>
-
-    <h3>Function Placement</h3>
-    <p>Code first, helpers below. Reader sees <em>what</em> the code does before <em>how</em>.</p>
-
-    <h3>Semicolons</h3>
-    <p>Always write them. ASI is unreliable.</p>
-
     <h3>Style Guides & Linters</h3>
     <ul>
       <li>Popular guides: <strong>Google</strong>, <strong>Airbnb</strong>, <strong>StandardJS</strong></li>
@@ -957,7 +793,6 @@ doSomething();</code></pre>
   "env": { "browser": true, "es6": true },
   "rules": { "indent": 2 }
 }</code></pre>
-    <div class="callout tip">One rule to remember: every decision should answer — does this make the code more readable and harder to break?</div>
   </section>
 
   <hr class="divider">
@@ -965,11 +800,7 @@ doSomething();</code></pre>
   <!-- 23 COMMENTS -->
   <section class="section" id="comments">
     <div class="section-pill"><span class="dot"></span>Chapter 23</div>
-    <div class="section-header">
-      <span class="section-num">23</span>
-      <h2>Comments</h2>
-    </div>
-
+    <div class="section-header"><span class="section-num">23</span><h2>Comments</h2></div>
     <h3>Bad Comments — explaining WHAT the code does</h3>
     <p>If you need to explain <em>what</em>, rewrite the code instead. A good function name IS the comment.</p>
     <pre><code>// ❌ bad — the comment just restates the code
@@ -978,12 +809,11 @@ for (let i = 2; i < n; i++) { ... }
 
 // ✅ no comment needed — function name explains it
 if (!isPrime(i)) continue;</code></pre>
-
     <h3>Good Comments — comment the WHY, not the WHAT</h3>
-    <p>Three things worth commenting:</p>
     <ul>
-      <li><strong>Architecture</strong> — high-level overview of how components interact. Use UML diagrams for complex systems.</li>
-      <li><strong>Function docs (JSDoc)</strong> — parameters, return value, usage:</li>
+      <li><strong>Architecture</strong> — high-level overview of how components interact</li>
+      <li><strong>Function docs (JSDoc)</strong> — parameters, return value, usage</li>
+      <li><strong>Why this solution</strong> — explain why you chose this approach, especially if a more obvious solution was tried and rejected</li>
     </ul>
     <pre><code>/**
  * Returns x raised to the n-th power.
@@ -991,12 +821,7 @@ if (!isPrime(i)) continue;</code></pre>
  * @param {number} n The power, must be natural.
  * @return {number} x raised to the n-th power.
  */
-function pow(x, n) { ... }
-// JSDoc3 can auto-generate HTML docs. Editors use them for autocomplete.</code></pre>
-    <ul>
-      <li><strong>Why this solution</strong> — most underrated comment. Explain why you chose this approach, especially if a more "obvious" solution was tried and rejected.</li>
-    </ul>
-
+function pow(x, n) { ... }</code></pre>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Comment this</th><th>Don't comment this</th></tr></thead>
@@ -1015,12 +840,8 @@ function pow(x, n) { ... }
   <!-- 24 TESTING -->
   <section class="section" id="testing">
     <div class="section-pill"><span class="dot"></span>Chapter 24</div>
-    <div class="section-header">
-      <span class="section-num">24</span>
-      <h2>Automated Testing with Mocha</h2>
-    </div>
+    <div class="section-header"><span class="section-num">24</span><h2>Automated Testing with Mocha</h2></div>
     <p>Manual re-runs miss things. Fix <code>f(2)</code>, forget to recheck <code>f(1)</code>. Automated tests catch regressions automatically.</p>
-
     <h3>BDD — Behavior Driven Development</h3>
     <p>Spec = tests + documentation + examples in one. Write the spec first, then implement.</p>
     <ul>
@@ -1030,33 +851,18 @@ function pow(x, n) { ... }
       <li>Add more test cases → tests fail → update implementation → tests pass</li>
       <li>Repeat until done</li>
     </ul>
-
     <h3>Spec Structure</h3>
     <pre><code>describe("pow", function() {        // group — what are we testing?
   it("raises to n-th power", function() {  // one use case
     assert.equal(pow(2, 3), 8);            // check expected result
   });
 });</code></pre>
-    <ul>
-      <li><strong>describe</strong> — groups related tests</li>
-      <li><strong>it</strong> — one specific use case, human-readable title</li>
-      <li><strong>assert.equal</strong> — checks two values are equal, throws if not</li>
-    </ul>
     <div class="callout warn">One <code>it</code> = one thing. If you have two independent checks, split into two <code>it</code> blocks — when an assert fails, the <code>it</code> block stops and you lose info about what else failed.</div>
-
-    <h3>Generating Tests in a Loop</h3>
-    <pre><code>for (let x = 1; x <= 5; x++) {
-  it(`${x} in the power 3 is ${x**3}`, function() {
-    assert.equal(pow(x, 3), x**3);
-  });
-}</code></pre>
-
     <h3>Hooks</h3>
     <pre><code>before(() => ...)       // runs once before ALL tests
 after(() => ...)        // runs once after ALL tests
 beforeEach(() => ...)   // runs before EACH it
 afterEach(() => ...)    // runs after EACH it</code></pre>
-
     <h3>Common Chai Assertions</h3>
     <div class="table-wrap">
       <table>
@@ -1071,8 +877,7 @@ afterEach(() => ...)    // runs after EACH it</code></pre>
         </tbody>
       </table>
     </div>
-    <div class="callout tip">Libraries: <strong>Mocha</strong> (test runner — provides describe, it), <strong>Chai</strong> (assertions), <strong>Sinon</strong> (spies, mocks, stubs).</div>
-    <div class="callout tip">Without tests — either ship bugs or become too afraid to touch old code. Both are bad.</div>
+    <div class="callout tip">Libraries: <strong>Mocha</strong> (test runner), <strong>Chai</strong> (assertions), <strong>Sinon</strong> (spies, mocks, stubs). Without tests — either ship bugs or become too afraid to touch old code.</div>
   </section>
 
   <hr class="divider">
@@ -1080,12 +885,8 @@ afterEach(() => ...)    // runs after EACH it</code></pre>
   <!-- 25 POLYFILLS -->
   <section class="section" id="polyfills">
     <div class="section-pill"><span class="dot"></span>Chapter 25</div>
-    <div class="section-header">
-      <span class="section-num">25</span>
-      <h2>Polyfills &amp; Transpilers</h2>
-    </div>
+    <div class="section-header"><span class="section-num">25</span><h2>Polyfills &amp; Transpilers</h2></div>
     <p>JS evolves fast. New features don't work on older engines. Two tools fix this.</p>
-
     <h3>Transpiler</h3>
     <p>Converts modern <em>syntax</em> to older equivalent syntax. Most popular: <strong>Babel</strong>. Runs automatically via webpack.</p>
     <pre><code>// your code
@@ -1093,7 +894,6 @@ height = height ?? 100;
 
 // after transpiler (Babel):
 height = (height !== null && height !== undefined) ? height : 100;</code></pre>
-
     <h3>Polyfill</h3>
     <p>Adds missing built-in <em>functions</em> that older engines don't have. Popular library: <strong>core-js</strong>.</p>
     <pre><code>if (!Math.trunc) {
@@ -1101,7 +901,6 @@ height = (height !== null && height !== undefined) ? height : 100;</code></pre>
     return number < 0 ? Math.ceil(number) : Math.floor(number);
   };
 }</code></pre>
-
     <h3>Which One to Use?</h3>
     <div class="table-wrap">
       <table>
@@ -1113,10 +912,6 @@ height = (height !== null && height !== undefined) ? height : 100;</code></pre>
         </tbody>
       </table>
     </div>
-    <ul>
-      <li>JS features → <strong>compat-table.github.io/compat-table/es6</strong></li>
-      <li>Browser APIs → <strong>caniuse.com</strong></li>
-    </ul>
     <div class="callout tip">Write modern code, let tooling handle backwards compatibility. Don't dumb down your code manually.</div>
   </section>
 
@@ -1125,62 +920,34 @@ height = (height !== null && height !== undefined) ? height : 100;</code></pre>
   <!-- 26 OBJECTS -->
   <section class="section" id="objects">
     <div class="section-pill"><span class="dot"></span>Chapter 26</div>
-    <div class="section-header">
-      <span class="section-num">26</span>
-      <h2>Objects</h2>
-    </div>
+    <div class="section-header"><span class="section-num">26</span><h2>Objects</h2></div>
     <p>Used to store <strong>keyed collections</strong> of data and complex entities. Objects penetrate almost every aspect of JavaScript.</p>
-
-    <h3>What is an Object?</h3>
-    <ul>
-      <li>One of 8 data types — the other 7 are "primitive" (hold a single value)</li>
-      <li>Stores <strong>key-value pairs</strong> called properties</li>
-      <li>Think of it as a cabinet with signed files — easy to find, add, or remove by key</li>
-      <li>Keys must be <strong>strings or symbols</strong> (usually strings); values can be anything</li>
-    </ul>
-
     <h3>Creating an Object</h3>
     <pre><code>let user = new Object(); // object constructor syntax
 let user = {};           // object literal syntax (preferred)
 
-// With properties inline:
-let user = { name: "John", age: 30 };</code></pre>
+let user = { name: "John", age: 30 };  // with properties inline</code></pre>
     <div class="callout tip">A trailing comma after the last property is allowed and encouraged — makes editing easier.</div>
-
     <h3>Accessing Properties</h3>
-    <pre><code>user.name          // dot notation — simple keys only
+    <pre><code>user.name           // dot notation — simple keys only
 user["likes birds"] // square brackets — any string, including multiword
-user[key]          // square brackets accept variables and expressions
-                   // dot notation CANNOT do this</code></pre>
-    <ul>
-      <li>Dot requires key to have no spaces, not start with a digit, no special characters (except <code>$</code> and <code>_</code>)</li>
-    </ul>
-
+user[key]           // square brackets accept variables and expressions
+                    // dot notation CANNOT do this</code></pre>
     <h3>Adding, Modifying, Deleting</h3>
     <pre><code>user.isAdmin = true;   // add or update
 delete user.age;       // delete a property
 // Accessing a non-existent property returns undefined — no error thrown</code></pre>
-
     <h3>Computed Properties</h3>
     <pre><code>let fruit = prompt("Which fruit?", "apple");
 let bag = {
   [fruit]: 5,              // key taken from variable
   [fruit + 'Computers']: 5 // expressions also work
 };</code></pre>
-
     <h3>Property Value Shorthand</h3>
     <pre><code>// Instead of: { name: name, age: age }
 function makeUser(name, age) {
   return { name, age };  // shorthand — same result
 }</code></pre>
-
-    <h3>Property Name Limitations</h3>
-    <ul>
-      <li>No restrictions — reserved words like <code>for</code>, <code>let</code>, <code>return</code> are all valid as keys</li>
-      <li>Non-string keys auto-convert to strings — number <code>0</code> becomes string <code>"0"</code></li>
-      <li>Special case: <code>__proto__</code> cannot be set to a non-object value — silently ignores the assignment</li>
-    </ul>
-
     <h3>Checking if a Property Exists</h3>
     <pre><code>user.noSuchProp === undefined  // works in most cases
 "key" in object                // safer — the "in" operator
@@ -1189,31 +956,342 @@ function makeUser(name, age) {
 let obj = { test: undefined };
 obj.test              // undefined — looks like missing!
 "test" in obj         // true — correctly detects it exists</code></pre>
-    <div class="callout tip">Explicitly storing <code>undefined</code> is rare — use <code>null</code> for "unknown" or "empty" values instead.</div>
-
     <h3>The for..in Loop</h3>
     <pre><code>for (let key in user) {
   alert(key);        // property name
   alert(user[key]);  // property value
 }
-// Variable can be named anything: key, prop, etc.
-// Completely different from for(;;)</code></pre>
-
-    <h3>Property Ordering in for..in</h3>
+// Integer properties are sorted numerically
+// Non-integer properties appear in creation order</code></pre>
+    <h3>Property Name Limitations</h3>
     <ul>
-      <li><strong>Integer properties</strong> — sorted numerically ascending, regardless of insertion order</li>
-      <li><strong>Non-integer properties</strong> — appear in creation order</li>
-      <li>An "integer property" = string that converts to integer and back unchanged (<code>"49"</code> yes, <code>"+49"</code> or <code>"1.2"</code> no)</li>
-      <li>To preserve insertion order for integer-like keys, prefix them (e.g. <code>"+49"</code>) to make them non-integer</li>
+      <li>No restrictions — reserved words like <code>for</code>, <code>let</code>, <code>return</code> are all valid as keys</li>
+      <li>Non-string keys auto-convert to strings — number <code>0</code> becomes string <code>"0"</code></li>
+      <li>Special case: <code>__proto__</code> cannot be set to a non-object value — silently ignores the assignment</li>
     </ul>
+  </section>
 
-    <h3>Other Built-in Object Types</h3>
-    <div class="kv-grid">
-      <div class="kv-item"><div class="kv-key">Array</div><div class="kv-val">Ordered data collections</div></div>
-      <div class="kv-item"><div class="kv-key">Date</div><div class="kv-val">Date and time info</div></div>
-      <div class="kv-item"><div class="kv-key">Error</div><div class="kv-val">Error information</div></div>
+  <hr class="divider">
+
+  <!-- 27 OBJECT REFERENCES & COPYING -->
+  <section class="section" id="objref">
+    <div class="section-pill"><span class="dot"></span>Chapter 27</div>
+    <div class="section-header"><span class="section-num">27</span><h2>Object References &amp; Copying</h2></div>
+    <p>Primitives (string, number, bool) are <strong>copied by value</strong> — two independent copies. Objects are <strong>copied by reference</strong> — both variables point to the same object.</p>
+    <h3>Reference Copying</h3>
+    <pre><code>let user = { name: "John" };
+let admin = user; // same object, not a new one
+admin.name = "Pete";
+alert(user.name); // "Pete" — both affected</code></pre>
+    <h3>Comparison by Reference</h3>
+    <pre><code>let a = {};
+let b = a;   // same reference
+a == b  // true
+
+let c = {};
+let d = {};  // two separate empty objects
+c == d  // false — different references</code></pre>
+    <h3>const Objects</h3>
+    <p><code>const</code> prevents reassigning the <em>variable</em>, not changing its <em>properties</em>.</p>
+    <pre><code>const user = { name: "John" };
+user.name = "Pete"; // ✅ works fine — changing a property
+user = {};          // ❌ error — reassigning the variable</code></pre>
+    <h3>Cloning (Shallow)</h3>
+    <pre><code>// Method 1 — loop
+for (let key in user) { clone[key] = user[key]; }
+
+// Method 2 — Object.assign
+let clone = Object.assign({}, user);
+
+// Method 3 — spread (preferred)
+let clone = { ...user };</code></pre>
+    <div class="callout warn">Shallow clone fails for <strong>nested objects</strong> — they still share the same reference inside.</div>
+    <h3>Deep Cloning (Nested Objects)</h3>
+    <pre><code>let clone = structuredClone(user); // fully independent copy
+// Works with: objects, arrays, primitives, circular references
+// ❌ Fails with: function properties
+
+// Alternative: _.cloneDeep(obj) from lodash</code></pre>
+    <div class="callout tip"><code>structuredClone</code> handles circular references — <code>JSON.parse(JSON.stringify(obj))</code> does not. Prefer <code>structuredClone</code>.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 28 GARBAGE COLLECTION -->
+  <section class="section" id="gc">
+    <div class="section-pill"><span class="dot"></span>Chapter 28</div>
+    <div class="section-header"><span class="section-num">28</span><h2>Garbage Collection</h2></div>
+    <p>JS automatically manages memory — you don't do it manually. The garbage collector removes objects that are no longer <strong>reachable</strong>.</p>
+    <h3>Reachability — The Core Concept</h3>
+    <p>A value is <em>reachable</em> if it can be accessed somehow → stays in memory. Always-reachable roots:</p>
+    <ul>
+      <li>Currently running function + its variables</li>
+      <li>Nested call chain variables</li>
+      <li>Global variables</li>
+    </ul>
+    <p>Anything reachable <em>from</em> a root (via references) also stays in memory.</p>
+    <h3>Examples</h3>
+    <pre><code>let user = { name: "John" }; // reachable
+user = null; // object now unreachable → gets deleted
+
+// Two references:
+let user = { name: "John" };
+let admin = user;
+user = null; // object still alive — admin holds it
+admin = null; // NOW deleted</code></pre>
+    <div class="callout danger">Outgoing references don't matter — only <strong>incoming</strong> ones keep an object alive. A whole group of interlinked objects is deleted if nothing from root points to them.</div>
+    <h3>Mark-and-Sweep Algorithm</h3>
+    <ul>
+      <li>Mark all roots</li>
+      <li>Follow & mark all their references</li>
+      <li>Repeat until all reachable objects are marked</li>
+      <li>Delete everything unmarked</li>
+    </ul>
+    <h3>Engine Optimizations</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Optimization</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Generational</td><td>Tracks "new" objects separately — most objects are short-lived</td></tr>
+          <tr><td>Incremental</td><td>Splits cleanup into small chunks, avoids big pauses</td></tr>
+          <tr><td>Idle-time</td><td>Runs only when CPU is free</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout tip">All formally belong to the single "object" data type and extend it — they are not separate types.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 29 OBJECT METHODS & THIS -->
+  <section class="section" id="methods">
+    <div class="section-pill"><span class="dot"></span>Chapter 29</div>
+    <div class="section-header"><span class="section-num">29</span><h2>Object Methods &amp; this</h2></div>
+    <p>A <strong>method</strong> is just a function stored as a property of an object.</p>
+    <pre><code>user.sayHi = function() { alert("Hello"); }
+
+// shorthand (preferred):
+let user = {
+  sayHi() {
+    alert("Hello");
+  }
+}</code></pre>
+    <h3>What is this?</h3>
+    <p><code>this</code> inside a method refers to the object <em>before the dot</em> at <strong>call time</strong>, not definition time.</p>
+    <pre><code>let user  = { name: "John",  sayHi() { alert(this.name); } };
+let admin = { name: "Admin", sayHi: user.sayHi };
+
+user.sayHi();  // "John"  — this = user
+admin.sayHi(); // "Admin" — this = admin</code></pre>
+    <div class="callout danger">Never reference the object by variable name inside a method. If that variable gets reassigned or nulled, it breaks silently.
+<pre><code>// ❌ WRONG — fragile
+sayHi() { alert(user.name); }
+
+// ✅ CORRECT — always points to caller
+sayHi() { alert(this.name); }</code></pre>
+    </div>
+    <h3>Calling a Function With No Object Context</h3>
+    <ul>
+      <li><strong>Strict mode</strong> → <code>this</code> is <code>undefined</code> → accessing <code>this.anything</code> throws</li>
+      <li><strong>Non-strict mode</strong> → <code>this</code> becomes the global object (<code>window</code> in browser)</li>
+    </ul>
+    <div class="callout warn">Both are bugs. A function using <code>this</code> expects to be called on an object.</div>
+    <h3>Arrow Functions Have No this</h3>
+    <p>Arrow functions inherit <code>this</code> from the outer lexical scope — whatever <code>this</code> was where the arrow function was <em>written</em>.</p>
+    <pre><code>let user = {
+  firstName: "Ilya",
+  sayHi() {
+    let arrow = () => alert(this.firstName); // borrows this from sayHi
+    arrow();
+  }
+};
+user.sayHi(); // "Ilya"</code></pre>
+    <div class="callout tip">Use arrow functions when you <em>don't</em> want a new <code>this</code> context — e.g. callbacks inside methods.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 30 CONSTRUCTORS & NEW -->
+  <section class="section" id="constructors">
+    <div class="section-pill"><span class="dot"></span>Chapter 30</div>
+    <div class="section-header"><span class="section-num">30</span><h2>Constructor Functions &amp; new</h2></div>
+    <p>Object literals <code>{}</code> create one object. Constructors create many similar objects with reusable code.</p>
+    <h3>The Two Conventions</h3>
+    <ul>
+      <li>Name starts with a <strong>capital letter</strong></li>
+      <li>Always called with <strong>new</strong></li>
+    </ul>
+    <div class="callout warn">These are agreements, not enforced rules. Break them and things still work — just becomes unreadable and error-prone.</div>
+    <h3>What new Does Internally</h3>
+    <pre><code>function User(name) {
+  // 1. this = {}  ← empty object created implicitly
+  this.name = name;
+  this.isAdmin = false;
+  // 2. return this  ← returned implicitly
+}
+
+let user = new User("Jack");
+// user = { name: "Jack", isAdmin: false }</code></pre>
+    <ul>
+      <li>Creates a new empty object, assigns it to <code>this</code></li>
+      <li>Runs the function body — you populate <code>this</code></li>
+      <li>Returns <code>this</code> automatically</li>
+    </ul>
+    <h3>Methods Inside Constructors</h3>
+    <pre><code>function User(name) {
+  this.name = name;
+  this.sayHi = function() {
+    alert("My name is: " + this.name);
+  };
+}</code></pre>
+    <h3>Return Behavior (Edge Case)</h3>
+    <p>Constructors normally have no <code>return</code>. But if they do:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>return value</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>An object</td><td>That object is returned — <code>this</code> is discarded</td></tr>
+          <tr><td>A primitive (or nothing)</td><td>Ignored — <code>this</code> is returned as normal</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <pre><code>function BigUser() {
+  this.name = "John";
+  return { name: "Godzilla" }; // this is thrown away
+}
+new BigUser().name // "Godzilla"</code></pre>
+    <h3>new.target (Advanced)</h3>
+    <pre><code>function User(name) {
+  if (!new.target) return new User(name); // auto-fix missing new
+  this.name = name;
+}
+// Called normally → new.target is undefined
+// Called with new → new.target is the function itself</code></pre>
+    <div class="callout tip">Core mental model: a constructor is a blueprint. <code>new</code> is the machine that stamps out objects from it. Every call to <code>new</code> creates a fresh isolated object populated by whatever you assign to <code>this</code>.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 31 SYMBOL TYPE -->
+  <section class="section" id="symbols">
+    <div class="section-pill"><span class="dot"></span>Chapter 31</div>
+    <div class="section-header"><span class="section-num">31</span><h2>Symbol Type</h2></div>
+    <p>Only two types may serve as object property keys: <strong>string</strong> or <strong>symbol</strong>. All other types auto-convert to string (e.g. <code>obj[1]</code> is the same as <code>obj["1"]</code>).</p>
+    <h3>What is a Symbol?</h3>
+    <p>A <strong>guaranteed unique identifier</strong>. Even symbols with the same description are different values.</p>
+    <pre><code>let id = Symbol("id");          // symbol with description "id"
+
+let id1 = Symbol("id");
+let id2 = Symbol("id");
+id1 == id2  // false — always unique</code></pre>
+    <h3>Symbols Don't Auto-Convert to String</h3>
+    <pre><code>let id = Symbol("id");
+alert(id);           // TypeError — can't auto-convert
+alert(id.toString()); // "Symbol(id)" — explicit works
+alert(id.description); // "id" — just the description</code></pre>
+    <h3>Hidden Properties</h3>
+    <p>Symbols let you add properties to objects that third-party code won't accidentally access or overwrite.</p>
+    <pre><code>let user = { name: "John" }; // belongs to another codebase
+let id = Symbol("id");
+user[id] = 1;
+alert(user[id]); // 1
+
+// If another script also uses Symbol("id"), there's no conflict:
+let theirId = Symbol("id");
+user[theirId] = "their value"; // totally independent</code></pre>
+    <div class="callout warn">Symbols are <strong>skipped</strong> by <code>for...in</code> and <code>Object.keys()</code> — they are invisible to standard iteration. But <code>Object.assign()</code> <strong>does</strong> copy symbols.</div>
+    <h3>Symbols in Object Literals</h3>
+    <pre><code>let id = Symbol("id");
+let user = {
+  name: "John",
+  [id]: 123    // ← must use square brackets, not "id": 123
+};</code></pre>
+    <h3>Global Symbol Registry</h3>
+    <p>Use when you need the same symbol across different parts of the codebase.</p>
+    <pre><code>// Create or retrieve from global registry
+let id = Symbol.for("id");
+
+// Retrieve again — same symbol guaranteed
+let idAgain = Symbol.for("id");
+id === idAgain  // true
+
+// Get name by symbol
+Symbol.keyFor(id)      // "id"
+Symbol.keyFor(Symbol("local"))  // undefined — not global</code></pre>
+    <h3>System Symbols</h3>
+    <p>JS uses built-in well-known symbols internally to fine-tune object behavior:</p>
+    <div class="kv-grid">
+      <div class="kv-item"><div class="kv-key">Symbol.toPrimitive</div><div class="kv-val">Controls object → primitive conversion</div></div>
+      <div class="kv-item"><div class="kv-key">Symbol.iterator</div><div class="kv-val">Makes objects iterable (for...of)</div></div>
+      <div class="kv-item"><div class="kv-key">Symbol.hasInstance</div><div class="kv-val">Customizes instanceof behavior</div></div>
+      <div class="kv-item"><div class="kv-key">Symbol.isConcatSpreadable</div><div class="kv-val">Controls Array.prototype.concat behavior</div></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 32 OBJECT TO PRIMITIVE CONVERSION -->
+  <section class="section" id="toprimitive">
+    <div class="section-pill"><span class="dot"></span>Chapter 32</div>
+    <div class="section-header"><span class="section-num">32</span><h2>Object → Primitive Conversion</h2></div>
+    <p>Objects cannot do math with each other. When you use an object in a numeric or string context, JS forcibly converts it to a primitive. The result is <strong>always a primitive</strong> — you cannot get an object back from <code>obj1 + obj2</code>.</p>
+    <div class="callout tip">Boolean conversion doesn't exist here — all objects are always <code>true</code>. Full stop.</div>
+    <h3>Three Hints — How JS Decides</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Hint</th><th>When it triggers</th></tr></thead>
+        <tbody>
+          <tr><td><code>"string"</code></td><td><code>alert(obj)</code>, using obj as a property key</td></tr>
+          <tr><td><code>"number"</code></td><td>Math operations, unary <code>+</code>, comparisons <code>&gt; &lt;</code></td></tr>
+          <tr><td><code>"default"</code></td><td>Binary <code>+</code>, <code>==</code> with a primitive — operator is unsure of type</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">All built-in objects treat <code>"default"</code> the same as <code>"number"</code>. Effectively it's just <strong>string vs number</strong>.</div>
+    <h3>Conversion Method Priority Order</h3>
+    <ul>
+      <li><code>obj[Symbol.toPrimitive](hint)</code> — if it exists, used for all hints. Done.</li>
+      <li>If hint is <code>"string"</code> → try <code>toString()</code> first, then <code>valueOf()</code></li>
+      <li>If hint is <code>"number"</code> or <code>"default"</code> → try <code>valueOf()</code> first, then <code>toString()</code></li>
+    </ul>
+    <h3>Symbol.toPrimitive — The Clean Modern Way</h3>
+    <pre><code>let user = {
+  name: "John",
+  money: 1000,
+
+  [Symbol.toPrimitive](hint) {
+    return hint == "string" ? `{name: "${this.name}"}` : this.money;
+  }
+};
+
+alert(user);       // {name: "John"} — string hint
+alert(+user);      // 1000           — number hint
+alert(user + 500)  // 1500           — default hint → number</code></pre>
+    <h3>toString / valueOf — The Old Way</h3>
+    <pre><code>let user = {
+  name: "John",
+  money: 1000,
+  toString() { return `{name: "${this.name}"}`; }, // string hint
+  valueOf()  { return this.money; }                 // number/default hint
+};
+
+// Same result as Symbol.toPrimitive above, just split across two methods</code></pre>
+    <h3>Default Behavior (No Custom Methods)</h3>
+    <pre><code>let user = { name: "John" };
+alert(user);      // "[object Object]" — toString default
+user.valueOf()    // returns the object itself → ignored (not a primitive)</code></pre>
+    <p>If you only define <code>toString</code> and nothing else — it handles all conversions as fallback. Useful for simple cases.</p>
+    <h3>Return Type Rules</h3>
+    <ul>
+      <li>Methods must return a <strong>primitive</strong> — any primitive, not necessarily the hinted type</li>
+      <li>If <code>toString</code>/<code>valueOf</code> returns an object → silently ignored, moves to next method</li>
+      <li>If <code>Symbol.toPrimitive</code> returns an object → throws an error. Stricter.</li>
+    </ul>
+    <h3>Further Conversions — Two Stage Process</h3>
+    <pre><code>let obj = { toString() { return "2"; } };
+
+alert(obj * 2);  // 4   → stage 1: obj → "2", stage 2: "2" * 2 → 4
+alert(obj + 2);  // "22" → stage 1: obj → "2", stage 2: "2" + 2 → concat!</code></pre>
+    <div class="callout danger">Binary <code>+</code> with a string result will <strong>concatenate</strong>, not add. This is a common gotcha in two-stage conversion.</div>
   </section>
 
   <hr class="divider">
@@ -1221,10 +1299,7 @@ obj.test              // undefined — looks like missing!
   <!-- QUIZ -->
   <section class="section" id="quiz">
     <div class="section-pill"><span class="dot"></span>Practice</div>
-    <div class="section-header">
-      <span class="section-num">★</span>
-      <h2>Quick Quiz</h2>
-    </div>
+    <div class="section-header"><span class="section-num">★</span><h2>Quick Quiz</h2></div>
     <p>Test yourself. No peeking at the notes above.</p>
 
     <!-- Q1 -->
@@ -1298,6 +1373,54 @@ obj.test              // undefined — looks like missing!
       <div class="quiz-feedback" id="q6-feedback"></div>
     </div>
 
+    <!-- Q7 -->
+    <div class="quiz-card" id="q7">
+      <div class="quiz-q">You do <code>let b = a</code> where <code>a</code> is an object. Then <code>b.name = "Pete"</code>. What does <code>a.name</code> return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q7', this, false)">Original name — b is a copy</button>
+        <button class="quiz-opt" onclick="answer('q7', this, true)">"Pete" — objects copy by reference</button>
+        <button class="quiz-opt" onclick="answer('q7', this, false)">undefined</button>
+        <button class="quiz-opt" onclick="answer('q7', this, false)">TypeError</button>
+      </div>
+      <div class="quiz-feedback" id="q7-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-card" id="q8">
+      <div class="quiz-q">What is <code>this</code> inside an arrow function?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q8', this, false)">The arrow function itself</button>
+        <button class="quiz-opt" onclick="answer('q8', this, false)">undefined always</button>
+        <button class="quiz-opt" onclick="answer('q8', this, true)">Inherited from the surrounding lexical scope</button>
+        <button class="quiz-opt" onclick="answer('q8', this, false)">The global object always</button>
+      </div>
+      <div class="quiz-feedback" id="q8-feedback"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="quiz-card" id="q9">
+      <div class="quiz-q">Two symbols: <code>Symbol("id") == Symbol("id")</code> — what does this return?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q9', this, false)">true — same description</button>
+        <button class="quiz-opt" onclick="answer('q9', this, true)">false — symbols are always unique</button>
+        <button class="quiz-opt" onclick="answer('q9', this, false)">TypeError</button>
+        <button class="quiz-opt" onclick="answer('q9', this, false)">"id"</button>
+      </div>
+      <div class="quiz-feedback" id="q9-feedback"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="quiz-card" id="q10">
+      <div class="quiz-q">What does <code>structuredClone(obj)</code> fail on?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer('q10', this, false)">Circular references</button>
+        <button class="quiz-opt" onclick="answer('q10', this, false)">Nested objects</button>
+        <button class="quiz-opt" onclick="answer('q10', this, true)">Function properties</button>
+        <button class="quiz-opt" onclick="answer('q10', this, false)">Arrays</button>
+      </div>
+      <div class="quiz-feedback" id="q10-feedback"></div>
+    </div>
+
   </section>
 
 </main>
@@ -1333,12 +1456,16 @@ obj.test              // undefined — looks like missing!
 
   // QUIZ
   const feedback = {
-    q1: { correct: "Correct! null == undefined is true — they're a special pair in JS. But null === undefined is false.", wrong: "Wrong. null == undefined is actually true — they're treated as equal by loose equality only." },
-    q2: { correct: "Correct! typeof null returns 'object' — a famous JS bug from 1995. null is NOT an object.", wrong: "Wrong. typeof null returns 'object' — a famous JS bug from 1995 that was never fixed." },
-    q3: { correct: "Correct! ?? only triggers fallback on null/undefined. 0 is defined, so it passes through.", wrong: "Wrong. ?? only triggers on null/undefined. 0 is a valid defined value — it passes through as 0." },
-    q4: { correct: "Correct! String comes first, so everything concatenates: '1' + 2 = '12', then '12' + 2 = '122'.", wrong: "Wrong. String comes first, so + concatenates: '1'+2='12', '12'+2='122'." },
-    q5: { correct: "Correct! No curly braces = implicit return. Add braces and you must write return explicitly.", wrong: "Wrong. No braces = implicit return. Only with curly braces do you need explicit return." },
-    q6: { correct: "Correct! '0' is a non-empty string — all non-empty strings are truthy, even '0'.", wrong: "Wrong. '0' is the truthy one — it's a non-empty string. 0 (number), '', null are all falsy." },
+    q1:  { correct: "Correct! null == undefined is true — they're a special pair in JS. But null === undefined is false.", wrong: "Wrong. null == undefined is actually true — they're treated as equal by loose equality only." },
+    q2:  { correct: "Correct! typeof null returns 'object' — a famous JS bug from 1995. null is NOT an object.", wrong: "Wrong. typeof null returns 'object' — a famous JS bug from 1995 that was never fixed." },
+    q3:  { correct: "Correct! ?? only triggers fallback on null/undefined. 0 is defined, so it passes through.", wrong: "Wrong. ?? only triggers on null/undefined. 0 is a valid defined value — it passes through as 0." },
+    q4:  { correct: "Correct! String comes first, so everything concatenates: '1' + 2 = '12', then '12' + 2 = '122'.", wrong: "Wrong. String comes first, so + concatenates: '1'+2='12', '12'+2='122'." },
+    q5:  { correct: "Correct! No curly braces = implicit return. Add braces and you must write return explicitly.", wrong: "Wrong. No braces = implicit return. Only with curly braces do you need explicit return." },
+    q6:  { correct: "Correct! '0' is a non-empty string — all non-empty strings are truthy, even '0'.", wrong: "Wrong. '0' is the truthy one — it's a non-empty string. 0 (number), '', null are all falsy." },
+    q7:  { correct: "Correct! Objects are copied by reference. b and a point to the same object — changing b changes a.", wrong: "Wrong. Objects copy by reference, not value. b = a means both variables point to the same object in memory." },
+    q8:  { correct: "Correct! Arrow functions have no own this — they borrow it from the enclosing lexical scope.", wrong: "Wrong. Arrow functions don't have their own this. They inherit it from wherever they were defined (lexical scope)." },
+    q9:  { correct: "Correct! Symbols are always unique. Even same description = different symbol. Use Symbol.for() for shared ones.", wrong: "Wrong. Symbols are always unique regardless of description. Symbol('id') !== Symbol('id'). Use Symbol.for('id') for shared symbols." },
+    q10: { correct: "Correct! structuredClone handles circular refs and nested objects — but it cannot clone function properties.", wrong: "Wrong. structuredClone handles circular references and nested objects fine. It fails specifically on function properties." },
   };
 
   function answer(qId, btn, isCorrect) {
@@ -1360,7 +1487,6 @@ obj.test              // undefined — looks like missing!
       card.classList.add('answered-wrong');
       fb.textContent = '✗ ' + feedback[qId].wrong;
       fb.className = 'quiz-feedback show wrong';
-      // Show correct answer
       options.forEach(opt => {
         if (opt.getAttribute('onclick').includes('true')) {
           opt.classList.add('correct');
